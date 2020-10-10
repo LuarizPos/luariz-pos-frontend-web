@@ -100,6 +100,30 @@ function Order() {
                 price={8000}
                 image="https://source.unsplash.com/100x100/?tea"
               />
+              <Cart
+                key={423432432}
+                id={32343242}
+                title="The Mi Tea "
+                description="Teh beraroma menyejukkan."
+                price={8000}
+                image="https://source.unsplash.com/100x100/?tea"
+              />
+              <Cart
+                key={423432432}
+                id={32343242}
+                title="The Mi Tea "
+                description="Teh beraroma menyejukkan."
+                price={8000}
+                image="https://source.unsplash.com/100x100/?tea"
+              />
+              <Cart
+                key={423432432}
+                id={32343242}
+                title="The Mi Tea "
+                description="Teh beraroma menyejukkan."
+                price={8000}
+                image="https://source.unsplash.com/100x100/?tea"
+              />
             </div>
             <Calculation />
             <PaymentMethod />

@@ -17,7 +17,7 @@ function PaymentMethod() {
         </div>
       </div>
       <div className="paymentMethod__payNow container">
-        <button className="btn btn-info btn-block">Pay Now</button>
+        <button className="btn btn-lg btn-info btn-block">Pay Now</button>
       </div>
     </div>
   );
