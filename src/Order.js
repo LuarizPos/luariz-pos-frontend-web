@@ -6,7 +6,7 @@ import Cart from "./Cart";
 import "./Order.css";
 import Calculation from "./Calculation";
 import PaymentMethod from "./PaymentMethod";
-import FooterPromo from "./FooterPromo";
+import Promotion from "./Promotion";
 
 function Order() {
   return (
@@ -50,7 +50,7 @@ function Order() {
                 image="https://source.unsplash.com/100x100/?tea"
               />
             </div>
-            <FooterPromo />
+            <Promotion />
           </div>
           <div className="order__rightPanel col-5">
             <div className="">
