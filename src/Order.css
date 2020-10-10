@@ -1,0 +1,8 @@
+.product__container {
+  height: 400px;
+}
+
+.order__cartList {
+  width: 100%;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}

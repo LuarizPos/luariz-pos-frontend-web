@@ -1,0 +1,29 @@
+.product__card {
+  width: 13em;
+  height: 12.5em;
+}
+
+.product__title {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.product__price {
+  display: flex;
+  align-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.product__description {
+  font-size: 0.65em;
+  color: gray;
+}
+
+.product__image {
+  height: 5vw;
+}
+
+.product__image > img {
+  max-height: 100%;
+  max-width: 100%;
+}

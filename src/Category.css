@@ -1,0 +1,18 @@
+.category > button.active {
+  background: #f07613;
+  border: 1px solid;
+  border-color: #f07613;
+  font-weight: 200;
+  color: #fff;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.category > button {
+  color: #000;
+  margin-right: 2.5em;
+}
+
+.category > button:hover {
+  text-decoration: solid;
+}
