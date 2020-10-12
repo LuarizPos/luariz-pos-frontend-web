@@ -40,71 +40,21 @@ function Order() {
                 <button className="btn btn-light">Clear</button>
               </div>
             </div>
-            <div className="order__cartList">
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="El Capucinno"
-                description="Kopi capucinno dengan rasa mantap."
-                price={15000}
-                image="https://source.unsplash.com/100x100/?coffee"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
+            <div className="order">
+              <div className="order__cartList">
+                {data.map((obj) => {
+                  return (
+                    <Cart
+                      key={obj.key}
+                      id={obj.id}
+                      title={obj.title}
+                      description={obj.description}
+                      price={obj.price}
+                      image={obj.image}
+                    />
+                  );
+                })}
+              </div>
             </div>
             <Calculation />
             <PaymentMethod />
