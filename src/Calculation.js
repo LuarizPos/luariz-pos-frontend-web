@@ -4,7 +4,7 @@ import "./Calculation.css";
 function Calculation(props) {
   return (
     <div className="calculation">
-      <div className="calculation__card card m-3">
+      <div className="calculation__card card m-1">
         <div className="card-body p-3">
           <span className="calculation__subtotal d-flex justify-content-between">
             <label>Subtotal</label>

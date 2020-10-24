@@ -6,7 +6,8 @@ import Cart from "./Cart";
 import "./Order.css";
 import Calculation from "./Calculation";
 import PaymentMethod from "./PaymentMethod";
-import FooterPromo from "./FooterPromo";
+import Promotion from "./Promotion";
+import data from "./productData.json";
 
 function Order() {
   return (
@@ -17,89 +18,43 @@ function Order() {
             <Header />
             <Category />
             <div className="product__container card-group overflow-auto justify-content-center">
-              <Product
-                key={42341132432}
-                id={432432432}
-                title="Jagung Panggang"
-                description="Jagung manis enak rasa asin gurih lezat."
-                price={3000}
-                image="https://source.unsplash.com/100x100/?corn"
-              />
-              <Product
-                key={423432432}
-                id={32343242}
-                title="Steak Iga Sapi"
-                description="Steak dengan daging pilihan yang gurih lezat."
-                price={45000}
-                image="https://source.unsplash.com/100x100/?steak"
-              />
-              <Product
-                key={423432432}
-                id={32343242}
-                title="El Capucinno"
-                description="Kopi capucinno dengan rasa mantap."
-                price={15000}
-                image="https://source.unsplash.com/100x100/?coffee"
-              />
-              <Product
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea"
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
+              {data.map((obj) => {
+                return (
+                  <Product
+                    key={obj.key}
+                    id={obj.id}
+                    title={obj.title}
+                    description={obj.description}
+                    price={obj.price}
+                    image={obj.image}
+                  />
+                );
+              })}
             </div>
-            <FooterPromo />
+            <Promotion />
           </div>
           <div className="order__rightPanel col-5">
-            <div className="">
+            <div className="mb-3">
               <div className="d-flex justify-content-between">
                 <h5 className="m-0 d-flex align-items-center">Current Order</h5>
                 <button className="btn btn-light">Clear</button>
               </div>
             </div>
-            <div className="order__cartList">
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="El Capucinno"
-                description="Kopi capucinno dengan rasa mantap."
-                price={15000}
-                image="https://source.unsplash.com/100x100/?coffee"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
-              <Cart
-                key={423432432}
-                id={32343242}
-                title="The Mi Tea "
-                description="Teh beraroma menyejukkan."
-                price={8000}
-                image="https://source.unsplash.com/100x100/?tea"
-              />
+            <div className="order">
+              <div className="order__cartList">
+                {data.map((obj) => {
+                  return (
+                    <Cart
+                      key={obj.key}
+                      id={obj.id}
+                      title={obj.title}
+                      description={obj.description}
+                      price={obj.price}
+                      image={obj.image}
+                    />
+                  );
+                })}
+              </div>
             </div>
             <Calculation />
             <PaymentMethod />

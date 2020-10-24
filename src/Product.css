@@ -1,6 +1,5 @@
 .product__card {
   width: 13em;
-  height: 12.5em;
 }
 
 .product__title {
@@ -20,7 +19,8 @@
 }
 
 .product__image {
-  height: 5vw;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .product__image > img {
