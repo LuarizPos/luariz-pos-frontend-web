@@ -1,8 +1,8 @@
-name: Deploy Website in branch dev to Surge 
+name: Deploy Website in branch dev to Surge
 
 on:
   push:
-    branches: [ dev ]
+    branches: [dev]
 
 jobs:
   build:
@@ -15,4 +15,5 @@ jobs:
         with:
           node-version: 8
       - run: npm install -g surge
-      - run: surge ./ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+      - run: npm run-script dev-deploy
+      - run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
