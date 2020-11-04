@@ -7,7 +7,7 @@ import "./Order.css";
 import Calculation from "./Calculation";
 import PaymentMethod from "./PaymentMethod";
 import Promotion from "./Promotion";
-import data from "./productData.json";
+import data from "../productData.json";
 
 function Order() {
   return (
