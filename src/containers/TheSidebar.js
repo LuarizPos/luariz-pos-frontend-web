@@ -8,11 +8,10 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { Redirect, NavLink } from "react-router-dom";
 
 function TheSidebar() {
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-
-  const toggle = () => setTooltipOpen(!tooltipOpen);
-
   const CustomTooltip = (props) => {
+    const [tooltipOpen, setTooltipOpen] = useState(false);
+
+    const toggle = () => setTooltipOpen(!tooltipOpen);
     return (
       <Tooltip
         placement="right"
@@ -35,49 +34,54 @@ function TheSidebar() {
     <div className="bg-info rounded text-center">
       <Redirect from="/" to="/dashboard" />
 
+      {/* Dashboard Menu */}
       <NavLink
         to="/dashboard"
         style={customStyle}
         activeStyle={customActiveStyle}
       >
-        <div className="py-3" id="DisabledAutoHideExample">
+        <div className="py-3" id="Dashboard">
           <Dashboard fontSize={customFontSize} />
         </div>
-        <CustomTooltip target="DisabledAutoHideExample" text="Dashboard menu" />
+        <CustomTooltip target="Dashboard" text="Dashboard" />
       </NavLink>
+      {/* Dashboard Menu */}
 
+      {/* Order Menu */}
       <NavLink to="/order" style={customStyle} activeStyle={customActiveStyle}>
-        <div className="py-3">
+        <div className="py-3" id="Order">
           <AddShoppingCartIcon fontSize={customFontSize} />
         </div>
+        <CustomTooltip target="Order" text="Order" />
       </NavLink>
-      <NavLink
-        to="/category"
-        style={customStyle}
-        activeStyle={customActiveStyle}
-      >
-        <div className="py-3">
+      {/* Order Menu */}
+
+      {/* Category Menu */}
+      <NavLink to="/category" style={customStyle} activeStyle={customActiveStyle}>
+        <div className="py-3" id="Category">
           <CategoryIcon fontSize={customFontSize} />
         </div>
+        <CustomTooltip target="Category" text="Category" />
       </NavLink>
-      <NavLink
-        to="/product"
-        style={customStyle}
-        activeStyle={customActiveStyle}
-      >
-        <div className="py-3">
+      {/* Category Menu */}
+
+      {/* Product Menu */}
+      <NavLink to="/product" style={customStyle} activeStyle={customActiveStyle}>
+        <div className="py-3" id="Product">
           <PostAddIcon fontSize={customFontSize} />
         </div>
+        <CustomTooltip target="Product" text="Product" />
       </NavLink>
-      <NavLink
-        to="/setting"
-        style={customStyle}
-        activeStyle={customActiveStyle}
-      >
-        <div className="py-3">
+      {/* Product Menu */}
+
+      {/* Setting Menu */}
+      <NavLink to="/setting" style={customStyle} activeStyle={customActiveStyle}>
+        <div className="py-3" id="Setting">
           <SettingsIcon fontSize={customFontSize} />
         </div>
+        <CustomTooltip target="Setting" text="Setting" />
       </NavLink>
+      {/* Setting Menu */}
     </div>
   );
 }
