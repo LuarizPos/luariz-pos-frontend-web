@@ -1,13 +1,7 @@
 import React from "react";
 
 function Category() {
-  return (
-    <div>
-      categorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategory
-      categorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategorycategory
-      categorycategorycategorycategorycategorycategorycategorycategory
-    </div>
-  );
+  return <p>category page</p>;
 }
 
 export default Category;
