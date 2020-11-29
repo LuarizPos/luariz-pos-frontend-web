@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import {
-  Collapse,
   Nav,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
-  NavbarText,
+  // Collapse,
+  // NavbarToggler,
+  // NavbarText,
   // NavItem,
   // NavLink,
   // UncontrolledDropdown,
@@ -16,38 +16,15 @@ import {
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const TheHeader = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  // const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">LuarizPOS</NavbarBrand>
-        {/* <NavbarToggler onClick={toggle} /> */}
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            {/* <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem> */}
-            {/* <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
-            </NavItem> */}
-            {/* <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
-          </Nav>
-        </Collapse>
+        <Nav className="mr-auto" navbar></Nav>
         <AccountCircleIcon fontSize="large" />
       </Navbar>
     </div>
