@@ -24,7 +24,7 @@ const TheHeader = (props) => {
     <div>
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">LuarizPOS</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        {/* <NavbarToggler onClick={toggle} /> */}
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             {/* <NavItem>
@@ -47,10 +47,8 @@ const TheHeader = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown> */}
           </Nav>
-          <NavbarText>
-            <AccountCircleIcon fontSize="large" />
-          </NavbarText>
         </Collapse>
+        <AccountCircleIcon fontSize="large" />
       </Navbar>
     </div>
   );
