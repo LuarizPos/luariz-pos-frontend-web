@@ -1,24 +1,17 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-const initialState = {
-  posts: [{ id: 1, title: "Test Post" }],
-  signUpModal: {
-    open: false,
-  },
-};
+import rootReducer from "./reducers";
 
-const reducer = (state = initialState, action) => {
-  if (action.type === "ADD_POST") {
-    return Object.assign({}, state, {
-      posts: state.posts.concat(action.payload),
-    });
-  }
-  return state;
-};
+const initalState = {};
+
+const middleware = [thunk];
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  rootReducer,
+  initalState,
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default store;
