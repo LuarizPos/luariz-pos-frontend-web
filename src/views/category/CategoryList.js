@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import { Col, ListGroup, ListGroupItem, Row } from "reactstrap";
+import {
+  Col,
+  Form,
+  Label,
+  ListGroup,
+  ListGroupItem,
+  Row,
+  FormGroup,
+  Input,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 function CategoryList() {
   const [deletemodal, setDeleteModal] = useState(false);
@@ -41,11 +54,18 @@ function CategoryList() {
   function EditModal(props) {
     return (
       <Modal isOpen={props.editModal} toggle={edittoggle}>
-        <ModalHeader toggle={edittoggle}>Edit</ModalHeader>
+        <ModalHeader toggle={edittoggle}>Edit {props.categoryName}</ModalHeader>
         <ModalBody>
-          Apakah Anda yakin untuk mengubah kategori dengan nama "
-          {props.categoryName}
-          "?
+          <Form>
+            <FormGroup>
+              <Label>Nama Kategori</Label>
+              <Input type="text" value={props.categoryName} id="categoryName" />
+            </FormGroup>
+            <FormGroup>
+              <Label>Deskripsi</Label>
+              <Input type="textarea" name="text" id="categoryDescription" />
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
           <Button
