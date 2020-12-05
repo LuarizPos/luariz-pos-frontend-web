@@ -18,7 +18,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 function CategoryList() {
-  const [deletemodal, setDeleteModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [categoryName, setCategoryName] = useState(false);
   const [categoryId, setCategoryId] = useState(false);
@@ -29,7 +29,7 @@ function CategoryList() {
 
   function DeleteModal(props) {
     return (
-      <Modal isOpen={props.deletemodal} toggle={deletetoggle}>
+      <Modal isOpen={props.deleteModal} toggle={deletetoggle}>
         <ModalHeader toggle={deletetoggle}>Konfirmasi</ModalHeader>
         <ModalBody>
           Apakah Anda yakin untuk menghapus kategori dengan nama "
@@ -86,12 +86,12 @@ function CategoryList() {
     console.log(event.currentTarget.value);
     let targetValueDelete = event.currentTarget.value;
     if (targetValueDelete === undefined) {
-      setDeleteModal(!deletemodal);
+      setDeleteModal(!deleteModal);
     } else {
       targetValueDelete = targetValueDelete.split("_");
       setCategoryName(targetValueDelete[1]);
       setCategoryId(targetValueDelete[0]);
-      setDeleteModal(!deletemodal);
+      setDeleteModal(!deleteModal);
     }
   };
 
@@ -111,7 +111,7 @@ function CategoryList() {
   return (
     <div style={{ height: "70vh", overflow: "scroll" }}>
       <DeleteModal
-        deletemodal={deletemodal}
+        deleteModal={deleteModal}
         categoryName={categoryName}
         categoryId={categoryId}
       />
