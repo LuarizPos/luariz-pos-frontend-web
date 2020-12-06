@@ -27,6 +27,14 @@ function CategoryList() {
     console.log("Hapus kategori dengan id ", id);
   }
 
+  function editCategory(id) {
+    console.log("Edit kategori dengan id ", id);
+  }
+
+  function handleChange(event) {
+    console.log(event.target.value);
+  }
+
   function DeleteModal(props) {
     return (
       <Modal isOpen={props.deleteModal} toggle={deletetoggle}>
@@ -59,7 +67,12 @@ function CategoryList() {
           <Form>
             <FormGroup>
               <Label>Nama Kategori</Label>
-              <Input type="text" value={props.categoryName} id="categoryName" />
+              <Input
+                type="text"
+                value={props.categoryName}
+                onChange={handleChange}
+                id="categoryName"
+              />
             </FormGroup>
             <FormGroup>
               <Label>Deskripsi</Label>
@@ -68,10 +81,7 @@ function CategoryList() {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button
-            color="danger"
-            onClick={() => deleteCategory(props.categoryId)}
-          >
+          <Button color="danger" onClick={() => editCategory(props.categoryId)}>
             Ya
           </Button>
           <Button color="secondary" onClick={edittoggle}>
