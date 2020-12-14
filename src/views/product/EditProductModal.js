@@ -88,12 +88,15 @@ function EditProductModal(props) {
         };
         dispatch(showLoading());
         dispatch(updateProducts(formData)).then(() => {
-          setOpen(false);
-          dispatch(clearError());
-          dispatch(hideLoading());
+          if (error.length === 0) {
+            return false;
+          } else {
+            setOpen(false);
+            dispatch(clearError());
+            dispatch(hideLoading());
+          }
         });
       } catch (e) {
-        // stop execution
         console.log(e);
       }
     }
