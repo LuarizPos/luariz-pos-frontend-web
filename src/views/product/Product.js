@@ -1,27 +1,71 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getProducts } from "../../store/actions/productsActions";
+import React, { useState } from "react";
+import {
+  Form,
+  Label,
+  FormGroup,
+  Input,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import ProductList from "./ProductList";
 
-class products extends Component {
-  componentDidMount() {
-    this.props.getProducts();
+function Product() {
+  const [addModal, setAddModal] = useState(false);
+  const addtoggle = () => setAddModal(!addModal);
+
+  function addCategory() {
+    console.log("Simpan kategori");
   }
-  render() {
-    const { products } = this.props.products;
-    console.log(products);
 
+  function handleChange(event) {
+    console.log(event.target.value);
+  }
+
+  function AddModal(props) {
     return (
-      <div>
-        {products.map((u) => (
-          <React.Fragment key={u.id}>
-            <h6>{u.name}</h6>
-          </React.Fragment>
-        ))}
-      </div>
+      <Modal isOpen={props.addModal} toggle={addtoggle}>
+        <ModalHeader toggle={addtoggle}>Tambah</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label>Nama Produk</Label>
+              <Input type="text" id="categoryName" onChange={handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <Label>Deskripsi</Label>
+              <Input type="textarea" name="text" id="categoryDescription" />
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => addCategory(props.categoryId)}>
+            Tambah
+          </Button>
+          <Button color="secondary" onClick={addtoggle}>
+            Batal
+          </Button>
+        </ModalFooter>
+      </Modal>
     );
   }
+
+  return (
+    <div>
+      <Button
+        color="primary"
+        onClick={addtoggle}
+        className="shadow my-3 rounded"
+      >
+        <AddCircleOutlineIcon /> Tambah Produk
+      </Button>
+      <AddModal addModal={addModal} />
+      <ProductList />
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => ({ products: state.products });
-
-export default connect(mapStateToProps, { getProducts })(products);
+export default Product;
