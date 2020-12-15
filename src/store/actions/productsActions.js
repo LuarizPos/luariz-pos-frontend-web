@@ -15,6 +15,8 @@ import {
   CLEAR_ERROR_FAILED,
   SHOW_ERROR,
   SHOW_ERROR_FAILED,
+  DELETE_PRODUCTS,
+  DELETE_PRODUCTS_ERROR,
 } from "../types";
 import axios from "axios";
 
@@ -95,6 +97,41 @@ export const updateProducts = (data) => async (dispatch) => {
       type: UPDATE_PRODUCTS_ERROR,
       payload:
         "Terjadi kesalahan koneksi saat mengedit produk. Cobalah beberapa saat lagi.",
+    });
+  }
+};
+
+export const deleteProducts = (id) => async (dispatch) => {
+  const headers = {
+    Authorization: "",
+    Token: "",
+    "Access-Control-Allow-Origin": "*",
+  };
+  try {
+    // Send a POST request
+    await axios({
+      method: "post",
+      url: "https://app-luariz-post.herokuapp.com/v1/delete_product",
+      data: {
+        Product: [
+          {
+            id: id,
+          },
+        ],
+      },
+      headers: headers,
+      timeout: 5000,
+    });
+
+    await dispatch({
+      type: DELETE_PRODUCTS,
+      payload: id,
+    });
+  } catch (e) {
+    dispatch({
+      type: DELETE_PRODUCTS_ERROR,
+      payload:
+        "Terjadi kesalahan koneksi saat menghapus produk. Cobalah beberapa saat lagi.",
     });
   }
 };
