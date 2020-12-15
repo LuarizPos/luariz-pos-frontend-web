@@ -85,7 +85,7 @@ export default function productReducer(state = initialState, action) {
           (product, index) => index !== action.payload
           // (comment => comment.id !== commentId)
         ),
-        loadingProductData: true,
+        loadingProductData: false,
       };
     case DELETE_PRODUCTS_ERROR:
       return {
