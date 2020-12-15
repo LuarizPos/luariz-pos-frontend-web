@@ -21,12 +21,11 @@ class ProductList extends Component {
   }
   render() {
     const { products } = this.props.products;
-    const { loading } = this.props.products;
-    // console.log("loading: ", loading);
+    const { loadingProductData } = this.props.products;
 
     return (
       <div>
-        {loading ? (
+        {loadingProductData ? (
           <LoadingData />
         ) : (
           <Row

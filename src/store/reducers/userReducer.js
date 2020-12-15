@@ -2,7 +2,7 @@ import { GET_USERS } from "../types";
 
 const initialState = {
   users: [],
-  loading: true,
+  loading: false,
 };
 
 export default function userReducer(state = initialState, action) {

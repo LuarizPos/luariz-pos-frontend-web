@@ -8,12 +8,13 @@ import {
   HIDE_LOADING,
   CLEAR_ERROR,
   SHOW_ERROR,
+  DELETE_PRODUCTS,
+  DELETE_PRODUCTS_ERROR,
 } from "../types";
 
 const initialState = {
   products: [],
-  loading: false,
-  openEditModal: false,
+  loadingProductData: false,
   error: "",
 };
 
@@ -32,12 +33,12 @@ export default function productReducer(state = initialState, action) {
     case SHOW_LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loadingProductData: action.payload,
       };
     case HIDE_LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loadingProductData: action.payload,
       };
     case CLEAR_ERROR:
       return {
@@ -53,7 +54,7 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
-        loading: false,
+        loadingProductData: false,
       };
     case UPDATE_PRODUCTS:
       return {
@@ -69,14 +70,28 @@ export default function productReducer(state = initialState, action) {
               }
             : product
         ),
-        loading: true,
-        openEditModal: false,
+        loadingProductData: false,
       };
     case UPDATE_PRODUCTS_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false,
+        loadingProductData: false,
+      };
+    case DELETE_PRODUCTS:
+      return {
+        ...state,
+        products: state.products.filter(
+          (product, index) => index !== action.payload
+          // (comment => comment.id !== commentId)
+        ),
+        loadingProductData: true,
+      };
+    case DELETE_PRODUCTS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loadingProductData: false,
       };
     default:
       return state;
