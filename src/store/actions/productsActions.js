@@ -26,6 +26,11 @@ export const getProducts = () => async (dispatch) => {
     "Content-Type": "application/json",
   };
   try {
+    await dispatch({
+      type: SHOW_LOADING,
+      payload: true,
+    });
+
     // Send a POST request
     let res = await axios({
       method: "post",
