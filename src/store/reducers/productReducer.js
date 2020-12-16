@@ -82,8 +82,7 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: state.products.filter(
-          (product, index) => index !== action.payload
-          // (comment => comment.id !== commentId)
+          (product) => product.id !== action.payload
         ),
         loadingProductData: false,
       };
