@@ -85,7 +85,7 @@ export const updateProducts = (data) => async (dispatch) => {
         ],
       },
       headers: headers,
-      timeout: 5000,
+      timeout: 15000,
     });
 
     await dispatch({
@@ -120,7 +120,7 @@ export const deleteProducts = (id) => async (dispatch) => {
         ],
       },
       headers: headers,
-      timeout: 5000,
+      timeout: 15000,
     });
 
     await dispatch({
