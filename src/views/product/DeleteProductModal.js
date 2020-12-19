@@ -19,9 +19,8 @@ import Alert from "@material-ui/lab/Alert";
 function DeleteProductModal(props) {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.products.loading);
+  const loading = useSelector((state) => state.products.loadingProductData);
   const error = useSelector((state) => state.products.error);
-  console.log(error);
 
   const handleClickOpen = () => {
     dispatch(clearError());
@@ -50,8 +49,6 @@ function DeleteProductModal(props) {
       console.log(e);
     }
   };
-
-  useSelector((state) => console.log("state is : ", state));
 
   return (
     <div>

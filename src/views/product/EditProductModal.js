@@ -33,7 +33,7 @@ function EditProductModal(props) {
 
   const categories = useSelector((state) => state.categories.categories);
 
-  const loading = useSelector((state) => state.products.loading);
+  const loading = useSelector((state) => state.products.loadingProductData);
 
   const error = useSelector((state) => state.products.error);
 
