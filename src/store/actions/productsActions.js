@@ -17,6 +17,8 @@ import {
   SHOW_ERROR_FAILED,
   DELETE_PRODUCTS,
   DELETE_PRODUCTS_ERROR,
+  ADD_PRODUCTS,
+  ADD_PRODUCTS_ERROR,
 } from "../types";
 import axios from "axios";
 
@@ -132,6 +134,64 @@ export const deleteProducts = (id) => async (dispatch) => {
       type: DELETE_PRODUCTS_ERROR,
       payload:
         "Terjadi kesalahan koneksi saat menghapus produk. Cobalah beberapa saat lagi.",
+    });
+  }
+};
+
+export const addProducts = (data) => async (dispatch) => {
+  const headers = {
+    Authorization: "",
+    Token: "",
+    "Access-Control-Allow-Origin": "*",
+  };
+
+  try {
+    await dispatch({
+      type: SHOW_LOADING,
+      payload: true,
+    });
+
+    const addedData = {
+      name: data.name,
+      id_category: data.id_category,
+      description: data.description,
+      image: data.image.fullEncoded,
+      stock: 200,
+      price: data.price,
+    };
+
+    // Send a POST request
+    await axios({
+      method: "post",
+      url: "https://app-luariz-post.herokuapp.com/v1/insert_product",
+      data: {
+        Product: [
+          {
+            name: data.name,
+            id_category: data.id_category,
+            description: data.description,
+            image: data.image,
+            stock: 200,
+            price: data.price,
+          },
+        ],
+      },
+      headers: headers,
+      timeout: 15000,
+    }).then(function (response) {
+      // set id_product from response
+      addedData.id = response.data.API_LuarizPos.Response[0].id;
+    });
+
+    await dispatch({
+      type: ADD_PRODUCTS,
+      payload: addedData,
+    });
+  } catch (e) {
+    dispatch({
+      type: ADD_PRODUCTS_ERROR,
+      payload:
+        "Terjadi kesalahan koneksi saat menambah produk. Cobalah beberapa saat lagi.",
     });
   }
 };
