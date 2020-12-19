@@ -10,6 +10,7 @@ import {
   SHOW_ERROR,
   DELETE_PRODUCTS,
   DELETE_PRODUCTS_ERROR,
+  ADD_PRODUCTS,
 } from "../types";
 
 const initialState = {
@@ -90,6 +91,12 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload,
+        loadingProductData: false,
+      };
+    case ADD_PRODUCTS:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
         loadingProductData: false,
       };
     default:
