@@ -181,11 +181,10 @@ export const addProducts = (data) => async (dispatch) => {
     }).then(function (response) {
       // set id_product from response
       addedData.id = response.data.API_LuarizPos.Response[0].id;
-    });
-
-    await dispatch({
-      type: ADD_PRODUCTS,
-      payload: addedData,
+      dispatch({
+        type: ADD_PRODUCTS,
+        payload: addedData,
+      });
     });
   } catch (e) {
     dispatch({

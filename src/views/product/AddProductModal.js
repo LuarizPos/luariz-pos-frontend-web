@@ -23,13 +23,13 @@ function AddProductModal() {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [id_category, setId_category] = useState("");
   const [image, setImage] = useState([]);
-  const [disabledButton, setDisabledButton] = useState(false);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -127,11 +127,16 @@ function AddProductModal() {
         };
         dispatch(showLoading());
         dispatch(addProducts(formData)).then(() => {
-          if (error.length === 0) {
+          // Check if error is exist by get its class name from <Alert> component
+          let errorAddProduct = document.getElementsByClassName(
+            "error-product"
+          );
+          if (errorAddProduct.length === 0) {
             setOpen(false);
             dispatch(clearError());
             dispatch(hideLoading());
           } else {
+            setDisabledButton(false);
             return false;
           }
         });
@@ -151,7 +156,7 @@ function AddProductModal() {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       {error === "" ? null : (
-        <Alert severity="error" className="mb-2">
+        <Alert severity="error" className="error-product mb-2">
           {error}
         </Alert>
       )}
