@@ -60,14 +60,15 @@ export default function productReducer(state = initialState, action) {
     case UPDATE_PRODUCTS:
       return {
         ...state,
-        products: state.products.map((product, index) =>
+        products: state.products.map((product) =>
           product.id === action.payload.id_product
             ? {
                 ...product,
                 name: action.payload.name,
-                category_id: action.payload.id_category,
+                category_id: action.payload.category_id,
                 description: action.payload.description,
                 price: action.payload.price,
+                image: action.payload.image,
               }
             : product
         ),
