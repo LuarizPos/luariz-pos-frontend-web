@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
@@ -10,9 +10,8 @@ import {
   hideLoading,
   clearError,
   showError,
-  getProducts,
 } from "../../store/actions/productsActions";
-import { getCategories } from "../../store/actions/categoriesActions";
+// import { getCategories } from "../../store/actions/categoriesActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 import { DropzoneArea } from "material-ui-dropzone";
@@ -31,10 +30,9 @@ function AddProductModal() {
   const [id_category, setId_category] = useState("");
   const [image, setImage] = useState([]);
 
-  useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCategories());
+  // }, [dispatch]);
 
   const categories = useSelector((state) => state.categories.categories);
 

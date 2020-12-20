@@ -34,3 +34,5 @@ export const CLEAR_ERROR = "CLEAR_ERROR";
 export const CLEAR_ERROR_FAILED = "CLEAR_ERROR_FAILED";
 export const SHOW_ERROR = "SHOW_ERROR";
 export const SHOW_ERROR_FAILED = "SHOW_ERROR_FAILED";
+export const GET_ERROR = "GET_ERROR";
+export const GET_ERROR_FAILED = "GET_ERROR_FAILED";
