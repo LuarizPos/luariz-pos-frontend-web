@@ -69,6 +69,16 @@ export const updateProducts = (data) => async (dispatch) => {
     "Access-Control-Allow-Origin": "*",
   };
   try {
+    const updatedData = {
+      id_product: data.id_product,
+      name: data.name,
+      id_category: data.id_category,
+      description: data.description,
+      image: data.image.fullEncoded,
+      stock: 200,
+      price: data.price,
+    };
+
     // Send a POST request
     await axios({
       method: "post",
@@ -80,7 +90,7 @@ export const updateProducts = (data) => async (dispatch) => {
             name: data.name,
             id_category: data.id_category,
             description: data.description,
-            image: {},
+            image: data.image,
             stock: 200,
             price: data.price,
           },
@@ -88,11 +98,11 @@ export const updateProducts = (data) => async (dispatch) => {
       },
       headers: headers,
       timeout: 15000,
-    });
-
-    await dispatch({
-      type: UPDATE_PRODUCTS,
-      payload: data,
+    }).then(() => {
+      dispatch({
+        type: UPDATE_PRODUCTS,
+        payload: updatedData,
+      });
     });
   } catch (e) {
     dispatch({
