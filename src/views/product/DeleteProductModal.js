@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "reactstrap";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,7 +9,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector, useDispatch } from "react-redux";
 import {
   deleteProducts,
-  showLoading,
   hideLoading,
   clearError,
 } from "../../store/actions/productsActions";
@@ -17,10 +16,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 
 function DeleteProductModal(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.products.loadingProductData);
   const error = useSelector((state) => state.products.error);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
 
   const handleClickOpen = () => {
     dispatch(clearError());
@@ -34,15 +34,23 @@ function DeleteProductModal(props) {
 
   const handleDelete = (id) => {
     try {
-      dispatch(clearError());
-      dispatch(showLoading());
+      setInternalLoading(true);
+      setDisabledButton(true);
       dispatch(deleteProducts(id)).then(() => {
-        if (error.length === 0) {
-          return false;
+        // Check if error is exist by get its class name from <Alert> component
+        let errorEditProduct = document.getElementsByClassName("error-product");
+
+        console.log("errorEditProduct.length: ", errorEditProduct.length);
+        setInternalLoading(false);
+        // Check errorEditProduct is exist or not
+        if (errorEditProduct.length === 0) {
+          dispatch(hideLoading()).then(() => {
+            setDisabledButton(false);
+            setOpen(false);
+          });
         } else {
-          setOpen(false);
-          dispatch(clearError());
-          dispatch(hideLoading());
+          setDisabledButton(false);
+          return false;
         }
       });
     } catch (e) {
@@ -62,6 +70,7 @@ function DeleteProductModal(props) {
       <Dialog
         open={open}
         onClose={handleClose}
+        disableBackdropClick={true}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -71,7 +80,7 @@ function DeleteProductModal(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {error === "" ? null : (
-              <Alert severity="error" className="mb-2">
+              <Alert severity="error" className="error-product mb-2">
                 {error}
               </Alert>
             )}
@@ -81,11 +90,20 @@ function DeleteProductModal(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {loading ? <CircularProgress className="mr-2" /> : null}
-          <Button onClick={() => handleDelete(props.product.id)} color="danger">
+          {internalLoading ? <CircularProgress className="ml-2" /> : null}
+          <Button
+            onClick={() => handleDelete(props.product.id)}
+            color="danger"
+            disabled={disabledButton}
+          >
             Hapus
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button
+            onClick={handleClose}
+            color="primary"
+            autoFocus
+            disabled={disabledButton}
+          >
             Batalkan
           </Button>
         </DialogActions>
