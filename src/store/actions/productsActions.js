@@ -72,7 +72,7 @@ export const updateProducts = (data) => async (dispatch) => {
     const updatedData = {
       id_product: data.id_product,
       name: data.name,
-      id_category: data.id_category,
+      category_id: data.id_category,
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,
