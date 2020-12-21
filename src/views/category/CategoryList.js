@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Col,
   Form,
@@ -16,12 +16,22 @@ import {
 } from "reactstrap";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { getCategories } from "../../store/actions/categoriesActions";
+import { useSelector, useDispatch } from "react-redux";
 
 function CategoryList() {
+  const dispatch = useDispatch();
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [categoryName, setCategoryName] = useState(false);
   const [categoryId, setCategoryId] = useState(false);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  const categories = useSelector((state) => state.categories.categories);
+  console.log(categories);
 
   function deleteCategory(id) {
     console.log("Hapus kategori dengan id ", id);
@@ -73,10 +83,6 @@ function CategoryList() {
                 onChange={handleChange}
                 id="categoryName"
               />
-            </FormGroup>
-            <FormGroup>
-              <Label>Deskripsi</Label>
-              <Input type="textarea" name="text" id="categoryDescription" />
             </FormGroup>
           </Form>
         </ModalBody>
@@ -133,54 +139,37 @@ function CategoryList() {
       />
 
       <ListGroup>
-        <ListGroupItem className="shadow-sm p-3 mb-3 bg-white rounded">
-          <Row>
-            <Col className="text-left">
-              <label className="d-block font-weight-bold">Makanan</label>
-              <small>4 Products</small>
-            </Col>
-            <Col className="text-right align-self-center">
-              <Button
-                className="border bg-warning rounded-circle m-2"
-                onClick={edittoggle}
-                value="1_MakananEdit"
-              >
-                <CreateIcon />
-              </Button>
-              <Button
-                className="border bg-danger rounded-circle m-2"
-                onClick={deletetoggle}
-                value="1_Makanan"
-              >
-                <DeleteIcon />
-              </Button>
-            </Col>
-          </Row>
-        </ListGroupItem>
-        <ListGroupItem className="shadow-sm p-3 mb-3 bg-white rounded">
-          <Row>
-            <Col className="text-left">
-              <label className="d-block font-weight-bold">Minuman</label>
-              <small>6 Products</small>
-            </Col>
-            <Col className="text-right align-self-center">
-              <Button
-                className="border bg-warning rounded-circle m-2"
-                onClick={edittoggle}
-                value="2_MinumanEdit"
-              >
-                <CreateIcon />
-              </Button>
-              <Button
-                className="border bg-danger rounded-circle m-2"
-                onClick={deletetoggle}
-                value="2_Minuman"
-              >
-                <DeleteIcon />
-              </Button>
-            </Col>
-          </Row>
-        </ListGroupItem>
+        {categories.map((category) => (
+          <ListGroupItem
+            className="shadow-sm p-3 mb-3 bg-white rounded"
+            key={category.id}
+          >
+            <Row>
+              <Col className="text-left">
+                <label className="d-block font-weight-bold">
+                  {category.name}
+                </label>
+                <small>{category.total_product} Products</small>
+              </Col>
+              <Col className="text-right align-self-center">
+                <Button
+                  className="border bg-warning rounded-circle m-2"
+                  onClick={edittoggle}
+                  value={`${category.id}_${category.name}_Edit`}
+                >
+                  <CreateIcon />
+                </Button>
+                <Button
+                  className="border bg-danger rounded-circle m-2"
+                  onClick={deletetoggle}
+                  value={`${category.id}_${category.name}_Delete`}
+                >
+                  <DeleteIcon />
+                </Button>
+              </Col>
+            </Row>
+          </ListGroupItem>
+        ))}
       </ListGroup>
     </div>
   );
