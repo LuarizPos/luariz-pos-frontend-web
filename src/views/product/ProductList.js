@@ -14,6 +14,7 @@ import { getProducts } from "../../store/actions/productsActions";
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import LoadingData from "../../general_components/LoadingData";
+import { rupiahCoverter } from "../../helper/textHelper";
 
 class ProductList extends Component {
   componentDidMount() {
@@ -47,7 +48,7 @@ class ProductList extends Component {
                     <CardBody>
                       <CardTitle tag="h5">{product.name}</CardTitle>
                       <CardSubtitle tag="h6" className="mb-2 text-muted">
-                        {product.price}
+                        {rupiahCoverter(product.price)}
                       </CardSubtitle>
                       <CardText>{product.description}</CardText>
                       <div className="d-flex justify-content-around">
