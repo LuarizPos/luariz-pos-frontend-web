@@ -38,12 +38,11 @@ function DeleteProductModal(props) {
       setDisabledButton(true);
       dispatch(deleteProducts(id)).then(() => {
         // Check if error is exist by get its class name from <Alert> component
-        let errorEditProduct = document.getElementsByClassName("error-product");
+        let errorDeleteProduct = document.getElementsByClassName("error-product");
 
-        console.log("errorEditProduct.length: ", errorEditProduct.length);
         setInternalLoading(false);
-        // Check errorEditProduct is exist or not
-        if (errorEditProduct.length === 0) {
+        // Check errorDeleteProduct is exist or not
+        if (errorDeleteProduct.length === 0) {
           dispatch(hideLoading()).then(() => {
             setDisabledButton(false);
             setOpen(false);
