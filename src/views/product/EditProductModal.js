@@ -128,7 +128,6 @@ function EditProductModal(props) {
             "error-product"
           );
 
-          console.log("errorEditProduct.length: ", errorEditProduct.length);
           setInternalLoading(false);
           // Check errorEditProduct is exist or not
           if (errorEditProduct.length === 0) {
