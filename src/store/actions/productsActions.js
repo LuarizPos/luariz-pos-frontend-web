@@ -163,7 +163,7 @@ export const addProducts = (data) => async (dispatch) => {
 
     const addedData = {
       name: data.name,
-      id_category: data.id_category,
+      category_id: data.id_category,
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,
