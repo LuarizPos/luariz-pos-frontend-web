@@ -70,13 +70,13 @@ export const updateProducts = (data) => async (dispatch) => {
   };
   try {
     const updatedData = {
-      id_product: data.id_product,
+      id_product: Number(data.id_product),
       name: data.name,
-      category_id: data.id_category,
+      category_id: Number(data.id_category),
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,
-      price: data.price,
+      price: Number(data.price),
     };
 
     // Send a POST request
@@ -86,13 +86,13 @@ export const updateProducts = (data) => async (dispatch) => {
       data: {
         Product: [
           {
-            id_product: data.id_product,
+            id_product: Number(data.id_product),
             name: data.name,
-            id_category: data.id_category,
+            id_category: Number(data.id_category),
             description: data.description,
             image: data.image,
             stock: 200,
-            price: data.price,
+            price: Number(data.price),
           },
         ],
       },
@@ -127,7 +127,7 @@ export const deleteProducts = (id) => async (dispatch) => {
       data: {
         Product: [
           {
-            id: id,
+            id: Number(id),
           },
         ],
       },
@@ -163,11 +163,11 @@ export const addProducts = (data) => async (dispatch) => {
 
     const addedData = {
       name: data.name,
-      category_id: data.id_category,
+      category_id: Number(data.id_category),
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,
-      price: data.price,
+      price: Number(data.price),
     };
 
     // Send a POST request
@@ -178,11 +178,11 @@ export const addProducts = (data) => async (dispatch) => {
         Product: [
           {
             name: data.name,
-            id_category: data.id_category,
+            id_category: Number(data.id_category),
             description: data.description,
             image: data.image,
             stock: 200,
-            price: data.price,
+            price: Number(data.price),
           },
         ],
       },
