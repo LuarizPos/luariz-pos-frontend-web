@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Col,
   Form,
@@ -16,25 +16,61 @@ import {
 } from "reactstrap";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { getCategories } from "../../store/actions/categoriesActions";
-import { useSelector, useDispatch } from "react-redux";
+import Alert from "@material-ui/lab/Alert";
+import {
+  getCategories,
+  deleteCategories,
+  hideLoading,
+} from "../../store/actions/categoriesActions";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingData from "../../general_components/LoadingData";
+import { CircularProgress } from "@material-ui/core";
 
 function CategoryList() {
   const dispatch = useDispatch();
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
+
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [categoryName, setCategoryName] = useState(false);
   const [categoryId, setCategoryId] = useState(false);
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+  const error = useSelector((state) => state.categories.error);
 
+  const loadingCategoryData = useSelector(
+    (state) => state.categories.loadingCategoryData
+  );
   const categories = useSelector((state) => state.categories.categories);
-  console.log(categories);
+  // console.log(categories);
 
   function deleteCategory(id) {
-    console.log("Hapus kategori dengan id ", id);
+    // console.log("Hapus kategori dengan id ", id);
+    try {
+      setInternalLoading(true);
+      setDisabledButton(true);
+      dispatch(deleteCategories(id)).then(() => {
+        // Check if error is exist by get its class name from <Alert> component
+        let errorDeleteProduct = document.getElementsByClassName(
+          "error-category"
+        );
+
+        setInternalLoading(false);
+        // Check errorDeleteProduct is exist or not
+        if (errorDeleteProduct.length === 0) {
+          dispatch(hideLoading()).then(() => {
+            setDisabledButton(false);
+            setDeleteModal(false);
+            dispatch(getCategories());
+          });
+        } else {
+          setDisabledButton(false);
+          return false;
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   function editCategory(id) {
@@ -47,7 +83,12 @@ function CategoryList() {
 
   function DeleteModal(props) {
     return (
-      <Modal isOpen={props.deleteModal} toggle={deletetoggle}>
+      <Modal isOpen={props.deleteModal} fade={false} toggle={deletetoggle}>
+        {error === "" ? null : (
+          <Alert severity="error" className="error-category m-2">
+            {error}
+          </Alert>
+        )}
         <ModalHeader toggle={deletetoggle}>Konfirmasi</ModalHeader>
         <ModalBody>
           Apakah Anda yakin untuk menghapus kategori dengan nama "
@@ -55,13 +96,19 @@ function CategoryList() {
           "?
         </ModalBody>
         <ModalFooter>
+          {internalLoading ? <CircularProgress className="ml-2" /> : null}
           <Button
             color="danger"
+            disabled={disabledButton}
             onClick={() => deleteCategory(props.categoryId)}
           >
-            Ya
+            Hapus
           </Button>
-          <Button color="secondary" onClick={deletetoggle}>
+          <Button
+            color="secondary"
+            onClick={deletetoggle}
+            disabled={disabledButton}
+          >
             Batal
           </Button>
         </ModalFooter>
@@ -71,7 +118,7 @@ function CategoryList() {
 
   function EditModal(props) {
     return (
-      <Modal isOpen={props.editModal} toggle={edittoggle}>
+      <Modal isOpen={props.editModal} fade={false} toggle={edittoggle}>
         <ModalHeader toggle={edittoggle}>Edit {props.categoryName}</ModalHeader>
         <ModalBody>
           <Form>
@@ -87,8 +134,13 @@ function CategoryList() {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={() => editCategory(props.categoryId)}>
-            Ya
+          <Button
+            color="primary"
+            disabled={disabledButton}
+            onClick={() => editCategory(props.categoryId)}
+            autoFocus
+          >
+            Simpan
           </Button>
           <Button color="secondary" onClick={edittoggle}>
             Batal
@@ -126,51 +178,57 @@ function CategoryList() {
 
   return (
     <div style={{ height: "70vh", overflow: "scroll" }}>
-      <DeleteModal
-        deleteModal={deleteModal}
-        categoryName={categoryName}
-        categoryId={categoryId}
-      />
+      {loadingCategoryData === true ? (
+        <LoadingData />
+      ) : (
+        <>
+          <DeleteModal
+            deleteModal={deleteModal}
+            categoryName={categoryName}
+            categoryId={categoryId}
+          />
 
-      <EditModal
-        editModal={editModal}
-        categoryName={categoryName}
-        categoryId={categoryId}
-      />
+          <EditModal
+            editModal={editModal}
+            categoryName={categoryName}
+            categoryId={categoryId}
+          />
 
-      <ListGroup>
-        {categories.map((category) => (
-          <ListGroupItem
-            className="shadow-sm p-3 mb-3 bg-white rounded"
-            key={category.id}
-          >
-            <Row>
-              <Col className="text-left">
-                <label className="d-block font-weight-bold">
-                  {category.name}
-                </label>
-                <small>{category.total_product} Products</small>
-              </Col>
-              <Col className="text-right align-self-center">
-                <Button
-                  className="border bg-warning rounded-circle m-2"
-                  onClick={edittoggle}
-                  value={`${category.id}_${category.name}_Edit`}
-                >
-                  <CreateIcon />
-                </Button>
-                <Button
-                  className="border bg-danger rounded-circle m-2"
-                  onClick={deletetoggle}
-                  value={`${category.id}_${category.name}_Delete`}
-                >
-                  <DeleteIcon />
-                </Button>
-              </Col>
-            </Row>
-          </ListGroupItem>
-        ))}
-      </ListGroup>
+          <ListGroup>
+            {categories.map((category) => (
+              <ListGroupItem
+                className="shadow-sm p-3 mb-3 bg-white rounded"
+                key={category.id}
+              >
+                <Row>
+                  <Col className="text-left align-self-center">
+                    <h4 className="d-block font-weight-bold mb-0 text-dark">
+                      {category.name}
+                    </h4>
+                    <small>{category.total_product} Products</small>
+                  </Col>
+                  <Col className="text-right align-self-center">
+                    <Button
+                      className="border bg-warning rounded-circle p-3 m-2"
+                      onClick={edittoggle}
+                      value={`${category.id}_${category.name}_Edit`}
+                    >
+                      <CreateIcon />
+                    </Button>
+                    <Button
+                      className="border bg-danger rounded-circle p-3 m-2"
+                      onClick={deletetoggle}
+                      value={`${category.id}_${category.name}_Delete`}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+        </>
+      )}
     </div>
   );
 }

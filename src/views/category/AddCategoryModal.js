@@ -6,7 +6,13 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 import { useSelector, useDispatch } from "react-redux";
-import { clearError, showError } from "../../store/actions/productsActions";
+import {
+  addCategories,
+  clearError,
+  showError,
+  showLoading,
+  hideLoading,
+} from "../../store/actions/categoriesActions";
 
 function AddCategoryModal() {
   const dispatch = useDispatch();
@@ -17,7 +23,7 @@ function AddCategoryModal() {
   const [disabledButton, setDisabledButton] = useState(false);
 
   const [name, setName] = useState("");
-  const loading = useSelector((state) => state.products.loadingProductData);
+  const loading = useSelector((state) => state.products.loadingCategoryData);
 
   const error = useSelector((state) => state.products.error);
 
@@ -44,13 +50,35 @@ function AddCategoryModal() {
     event.preventDefault();
     setDisabledButton(true);
     if (validateForm()) {
+      try {
+        const formData = {
+          name,
+        };
+        dispatch(showLoading());
+        dispatch(addCategories(formData)).then(() => {
+          // Check if error is exist by get its class name from <Alert> component
+          let errorAddCategories = document.getElementsByClassName(
+            "error-category"
+          );
+          if (errorAddCategories.length === 0) {
+            setOpen(false);
+            dispatch(clearError());
+            dispatch(hideLoading());
+          } else {
+            setDisabledButton(false);
+            return false;
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
       {error === "" ? null : (
-        <Alert severity="error" className="error-product mb-2">
+        <Alert severity="error" className="error-category mb-2">
           {error}
         </Alert>
       )}
