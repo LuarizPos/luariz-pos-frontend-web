@@ -30,11 +30,6 @@ function EditProductModal(props) {
   const [id_category, setId_category] = useState(props.product.category_id);
   const [image, setImage] = useState([]);
 
-  useEffect(() => {
-    dispatch(hideLoading());
-    dispatch(getCategories());
-  }, [dispatch]);
-
   const categories = useSelector((state) => state.categories.categories);
 
   const error = useSelector((state) => state.products.error);
