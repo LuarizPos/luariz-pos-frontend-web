@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
@@ -10,7 +10,6 @@ import {
   clearError,
   showError,
 } from "../../store/actions/productsActions";
-import { getCategories } from "../../store/actions/categoriesActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 import { DropzoneArea } from "material-ui-dropzone";
