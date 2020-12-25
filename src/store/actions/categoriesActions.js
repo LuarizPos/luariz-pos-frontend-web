@@ -3,16 +3,17 @@ import {
   CATEGORIES_ERROR,
   ADD_CATEGORIES,
   ADD_CATEGORIES_ERROR,
-  SHOW_LOADING,
+  SHOW_LOADING_CATEGORIES,
   SHOW_LOADING_ERROR,
-  HIDE_LOADING,
   HIDE_LOADING_ERROR,
-  SHOW_ERROR,
   SHOW_ERROR_FAILED,
   CLEAR_ERROR_FAILED,
-  CLEAR_ERROR,
   DELETE_CATEGORIES,
   DELETE_CATEGORIES_ERROR,
+  UPDATE_CATEGORIES,
+  UPDATE_CATEGORIES_ERROR,
+  CLEAR_ERROR_CATEGORIES,
+  HIDE_LOADING_CATEGORIES,
 } from "../types";
 import axios from "axios";
 
@@ -24,7 +25,7 @@ export const getCategories = () => async (dispatch) => {
   };
   try {
     await dispatch({
-      type: SHOW_LOADING,
+      type: SHOW_LOADING_CATEGORIES,
       payload: true,
     });
 
@@ -61,14 +62,14 @@ export const getCategories = () => async (dispatch) => {
 
 export const addCategories = (data) => async (dispatch) => {
   const headers = {
-    "Authorization": "",
-    "Token": "",
+    Authorization: "",
+    Token: "",
     "Access-Control-Allow-Origin": "*",
   };
 
   try {
     await dispatch({
-      type: SHOW_LOADING,
+      type: SHOW_LOADING_CATEGORIES,
       payload: true,
     });
 
@@ -106,16 +107,58 @@ export const addCategories = (data) => async (dispatch) => {
   }
 };
 
-export const deleteCategories = (id) => async (dispatch) => {
+export const editCategories = (data) => async (dispatch) => {
   const headers = {
-    "Authorization": "",
-    "Token": "",
+    Authorization: "",
+    Token: "",
     "Access-Control-Allow-Origin": "*",
   };
 
   try {
     await dispatch({
-      type: SHOW_LOADING,
+      type: SHOW_LOADING_CATEGORIES,
+      payload: true,
+    });
+
+    // Send a POST request
+    await axios({
+      method: "post",
+      url: "https://app-luariz-post.herokuapp.com/v1/update_category",
+      data: {
+        Category: [
+          {
+            id_category: data.id,
+            name: data.name,
+          },
+        ],
+      },
+      headers: headers,
+      timeout: 15000,
+    });
+
+    await dispatch({
+      type: UPDATE_CATEGORIES,
+      payload: data,
+    });
+  } catch (e) {
+    dispatch({
+      type: UPDATE_CATEGORIES_ERROR,
+      payload:
+        "Terjadi kesalahan koneksi saat mengubah kategori. Cobalah beberapa saat lagi.",
+    });
+  }
+};
+
+export const deleteCategories = (id) => async (dispatch) => {
+  const headers = {
+    Authorization: "",
+    Token: "",
+    "Access-Control-Allow-Origin": "*",
+  };
+
+  try {
+    await dispatch({
+      type: SHOW_LOADING_CATEGORIES,
       payload: true,
     });
 
@@ -150,7 +193,7 @@ export const deleteCategories = (id) => async (dispatch) => {
 export const clearError = () => async (dispatch) => {
   try {
     dispatch({
-      type: CLEAR_ERROR,
+      type: CLEAR_ERROR_CATEGORIES,
       payload: "",
     });
   } catch (e) {
@@ -164,7 +207,7 @@ export const clearError = () => async (dispatch) => {
 export const showError = (string) => async (dispatch) => {
   try {
     dispatch({
-      type: SHOW_ERROR,
+      type: SHOW_LOADING_CATEGORIES,
       payload: string,
     });
   } catch (e) {
@@ -178,7 +221,7 @@ export const showError = (string) => async (dispatch) => {
 export const showLoading = () => async (dispatch) => {
   try {
     dispatch({
-      type: SHOW_LOADING,
+      type: SHOW_LOADING_CATEGORIES,
       payload: true,
     });
   } catch (e) {
@@ -192,7 +235,7 @@ export const showLoading = () => async (dispatch) => {
 export const hideLoading = () => async (dispatch) => {
   try {
     dispatch({
-      type: HIDE_LOADING,
+      type: HIDE_LOADING_CATEGORIES,
       payload: false,
     });
   } catch (e) {
