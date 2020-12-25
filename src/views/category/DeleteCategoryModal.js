@@ -93,7 +93,6 @@ function DeleteCategoryModal(props) {
       <Button
         className="border bg-danger rounded-circle p-3 m-2"
         onClick={handleOpen}
-        value={"dasda"}
       >
         <DeleteIcon />
       </Button>
