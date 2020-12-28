@@ -54,7 +54,7 @@ export default function categoryReducer(state = initialState, action) {
       return {
         ...state,
         categories: state.categories.filter(
-          (category) => category.id !== action.payload
+          (category) => category.id_category !== action.payload
         ),
         loadingCategoryData: false,
       };
