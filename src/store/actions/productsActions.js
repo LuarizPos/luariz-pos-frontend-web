@@ -72,7 +72,7 @@ export const updateProducts = (data) => async (dispatch) => {
     const updatedData = {
       id_product: Number(data.id_product),
       name: data.name,
-      category_id: Number(data.id_category),
+      id_category: Number(data.id_category),
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,
@@ -127,7 +127,7 @@ export const deleteProducts = (id) => async (dispatch) => {
       data: {
         Product: [
           {
-            id: Number(id),
+            id_product: Number(id),
           },
         ],
       },
@@ -163,7 +163,7 @@ export const addProducts = (data) => async (dispatch) => {
 
     const addedData = {
       name: data.name,
-      category_id: Number(data.id_category),
+      id_category: Number(data.id_category),
       description: data.description,
       image: data.image.fullEncoded,
       stock: 200,

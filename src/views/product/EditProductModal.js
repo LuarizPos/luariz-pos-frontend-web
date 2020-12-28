@@ -26,7 +26,7 @@ function EditProductModal(props) {
   const [name, setName] = useState(props.product.name);
   const [description, setDescription] = useState(props.product.description);
   const [price, setPrice] = useState(props.product.price);
-  const [id_category, setId_category] = useState(props.product.category_id);
+  const [id_category, setId_category] = useState(props.product.id_category);
   const [image, setImage] = useState([]);
 
   const categories = useSelector((state) => state.categories.categories);
@@ -252,7 +252,7 @@ function EditProductModal(props) {
   );
 
   return (
-    <div>
+    <div className="edit-modal" key={props.product.id}>
       <Button
         color="warning"
         className="border rounded-circle p-3"

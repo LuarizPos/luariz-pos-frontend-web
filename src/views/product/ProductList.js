@@ -11,6 +11,7 @@ import {
   Row,
 } from "reactstrap";
 import { getProducts } from "../../store/actions/productsActions";
+import { getCategories } from "../../store/actions/categoriesActions";
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import LoadingData from "../../general_components/LoadingData";
@@ -19,6 +20,7 @@ import { rupiahCoverter } from "../../helper/textHelper";
 class ProductList extends Component {
   componentDidMount() {
     this.props.getProducts();
+    this.props.getCategories();
   }
   render() {
     const { products } = this.props.products;
@@ -37,7 +39,7 @@ class ProductList extends Component {
           >
             {products.map((product) => (
               <Col md="3" sm="3" xs="3" key={product.id}>
-                <React.Fragment key={product.id}>
+                <React.Fragment>
                   <Card className="shadow mb-5 bg-white rounded">
                     <CardImg
                       top
@@ -51,7 +53,10 @@ class ProductList extends Component {
                         {rupiahCoverter(product.price)}
                       </CardSubtitle>
                       <CardText>{product.description}</CardText>
-                      <div className="d-flex justify-content-around">
+                      <div
+                        className="d-flex justify-content-around"
+                        key={product.id}
+                      >
                         <EditProductModal product={product} />
                         <DeleteProductModal product={product} />
                       </div>
@@ -69,4 +74,6 @@ class ProductList extends Component {
 
 const mapStateToProps = (state) => ({ products: state.products });
 
-export default connect(mapStateToProps, { getProducts })(ProductList);
+export default connect(mapStateToProps, { getProducts, getCategories })(
+  ProductList
+);

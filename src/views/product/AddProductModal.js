@@ -206,9 +206,9 @@ function AddProductModal() {
                 </option>
                 {categories.map((category) => (
                   <option
-                    key={category.id}
-                    id={category.id}
-                    value={category.id}
+                    key={category.id_category}
+                    id={category.id_category}
+                    value={category.id_category}
                   >
                     {category.name}
                   </option>

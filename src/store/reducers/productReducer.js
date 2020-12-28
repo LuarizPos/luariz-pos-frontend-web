@@ -67,7 +67,7 @@ export default function productReducer(state = initialState, action) {
             ? {
                 ...product,
                 name: action.payload.name,
-                category_id: action.payload.category_id,
+                id_category: action.payload.id_category,
                 description: action.payload.description,
                 price: action.payload.price,
                 image: action.payload.image,
