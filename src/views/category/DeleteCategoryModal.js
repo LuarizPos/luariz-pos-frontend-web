@@ -4,8 +4,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Alert from "@material-ui/lab/Alert";
 import {
   deleteCategories,
-  hideLoading,
-  showLoading,
   clearError,
 } from "../../store/actions/categoriesActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,19 +12,17 @@ import { CircularProgress } from "@material-ui/core";
 function DeleteCategoryModal(props) {
   const dispatch = useDispatch();
   const [disabledButton, setDisabledButton] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [name] = useState(props.category.name);
-  const [id] = useState(props.category.id);
+  const [id] = useState(props.category.id_category);
 
   const error = useSelector((state) => state.categories.error);
-  const loadingCategoryData = useSelector(
-    (state) => state.categories.loadingCategoryData
-  );
 
   function handleOpen() {
     dispatch(clearError());
-    dispatch(hideLoading());
+    setInternalLoading(false);
     setOpen(true);
   }
 
@@ -36,10 +32,10 @@ function DeleteCategoryModal(props) {
 
   function deleteCategory(id) {
     try {
-      dispatch(showLoading());
+      setInternalLoading(true);
       setDisabledButton(true);
       dispatch(deleteCategories(id)).then(() => {
-        dispatch(hideLoading());
+        setInternalLoading(false);
 
         // Check if error is exist by get its class name from <Alert> component
         let errorDeleteProduct = document.getElementsByClassName(
@@ -72,7 +68,7 @@ function DeleteCategoryModal(props) {
           "?
         </ModalBody>
         <ModalFooter>
-          {loadingCategoryData ? <CircularProgress className="ml-2" /> : null}
+          {internalLoading ? <CircularProgress className="ml-2" /> : null}
           <Button
             color="danger"
             disabled={disabledButton}

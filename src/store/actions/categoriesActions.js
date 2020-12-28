@@ -157,11 +157,6 @@ export const deleteCategories = (id) => async (dispatch) => {
   };
 
   try {
-    await dispatch({
-      type: SHOW_LOADING_CATEGORIES,
-      payload: true,
-    });
-
     // Send a POST request
     await axios({
       method: "post",
@@ -169,17 +164,17 @@ export const deleteCategories = (id) => async (dispatch) => {
       data: {
         Category: [
           {
-            id: id,
+            id_category: id,
           },
         ],
       },
       headers: headers,
       timeout: 15000,
-    });
-
-    await dispatch({
-      type: DELETE_CATEGORIES,
-      payload: id,
+    }).then(() => {
+      dispatch({
+        type: DELETE_CATEGORIES,
+        payload: id,
+      });
     });
   } catch (e) {
     dispatch({
