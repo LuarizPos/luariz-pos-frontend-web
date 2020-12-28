@@ -75,6 +75,7 @@ export const addCategories = (data) => async (dispatch) => {
 
     const addedData = {
       name: data.name,
+      total_product: 0,
     };
 
     // Send a POST request
@@ -85,6 +86,7 @@ export const addCategories = (data) => async (dispatch) => {
         Category: [
           {
             name: data.name,
+            total_product: 0,
           },
         ],
       },
