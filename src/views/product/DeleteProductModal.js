@@ -36,22 +36,26 @@ function DeleteProductModal(props) {
     try {
       setInternalLoading(true);
       setDisabledButton(true);
-      dispatch(deleteProducts(id)).then(() => {
-        // Check if error is exist by get its class name from <Alert> component
-        let errorDeleteProduct = document.getElementsByClassName("error-product");
 
-        setInternalLoading(false);
-        // Check errorDeleteProduct is exist or not
+      // Check if error is exist by get its class name from <Alert> component
+      let errorDeleteProduct = document.getElementsByClassName("error-product");
+
+      function checkError() {
         if (errorDeleteProduct.length === 0) {
-          dispatch(hideLoading()).then(() => {
-            setDisabledButton(false);
-            setOpen(false);
-          });
+          return true;
         } else {
           setDisabledButton(false);
+          setInternalLoading(false);
           return false;
         }
-      });
+      }
+
+      async function deleteNow() {
+        await dispatch(deleteProducts(id));
+        await checkError();
+      }
+
+      deleteNow();
     } catch (e) {
       console.log(e);
     }
@@ -77,12 +81,12 @@ function DeleteProductModal(props) {
           Hapus {props.product.name} ?
         </DialogTitle>
         <DialogContent>
+          {error === "" ? null : (
+            <Alert severity="error" className="error-product mb-2">
+              {error}
+            </Alert>
+          )}
           <DialogContentText id="alert-dialog-description">
-            {error === "" ? null : (
-              <Alert severity="error" className="error-product mb-2">
-                {error}
-              </Alert>
-            )}
             Data produk yang sudah dihapus tidak bisa dikembalikan kembali.
             Pastikan Anda yakin untuk menghapus data produk :
             {props.product.name}.
