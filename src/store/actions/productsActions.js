@@ -189,12 +189,14 @@ export const addProducts = (data) => async (dispatch) => {
       headers: headers,
       timeout: 15000,
     }).then(function (response) {
-      // set id_product from response
-      addedData.id = response.data.API_LuarizPos.Response[0].id;
-      dispatch({
-        type: ADD_PRODUCTS,
-        payload: addedData,
-      });
+      if (response.status === 200) {
+        // set id_product from response
+        addedData.id = response.data.API_LuarizPos.Response[0].id;
+        dispatch({
+          type: ADD_PRODUCTS,
+          payload: addedData,
+        });
+      }
     });
   } catch (e) {
     dispatch({
