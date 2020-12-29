@@ -1,21 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Col,
-  Row,
-} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { getProducts } from "../../store/actions/productsActions";
 import { getCategories } from "../../store/actions/categoriesActions";
-import EditProductModal from "./EditProductModal";
-import DeleteProductModal from "./DeleteProductModal";
 import LoadingData from "../../general_components/LoadingData";
-import { rupiahCoverter } from "../../helper/textHelper";
+import ProductItem from "./ProductItem";
 
 class ProductList extends Component {
   componentDidMount() {
@@ -31,41 +20,24 @@ class ProductList extends Component {
         {loadingProductData ? (
           <LoadingData />
         ) : (
-          <Row
-            style={{
-              height: "60vh",
-              overflow: "scroll",
-            }}
-          >
-            {products.map((product) => (
-              <Col md="3" sm="3" xs="3" key={product.id}>
-                <React.Fragment>
-                  <Card className="shadow mb-5 bg-white rounded">
-                    <CardImg
-                      top
-                      src={product.image}
-                      alt={product.name}
-                      width="100px"
-                    />
-                    <CardBody>
-                      <CardTitle tag="h5">{product.name}</CardTitle>
-                      <CardSubtitle tag="h6" className="mb-2 text-muted">
-                        {rupiahCoverter(product.price)}
-                      </CardSubtitle>
-                      <CardText>{product.description}</CardText>
-                      <div
-                        className="d-flex justify-content-around"
-                        key={product.id}
-                      >
-                        <EditProductModal product={product} />
-                        <DeleteProductModal product={product} />
-                      </div>
-                    </CardBody>
-                  </Card>
-                </React.Fragment>
-              </Col>
-            ))}
-          </Row>
+          <div>
+            {products.length === 0 ? (
+              <h6>Tidak ada data produk.</h6>
+            ) : (
+              <Row
+                style={{
+                  height: "60vh",
+                  overflow: "scroll",
+                }}
+              >
+                {products.map((product) => (
+                  <Col md="3" sm="3" xs="3" key={product.id}>
+                    <ProductItem product={product} />
+                  </Col>
+                ))}
+              </Row>
+            )}
+          </div>
         )}
       </div>
     );
