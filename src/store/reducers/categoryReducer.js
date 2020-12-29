@@ -29,7 +29,15 @@ export default function categoryReducer(state = initialState, action) {
     case UPDATE_CATEGORIES:
       return {
         ...state,
-        categories: action.payload,
+        categories: state.categories.map((category) =>
+          category.id_category === action.payload.id_category
+            ? {
+                ...category,
+                id_category: action.payload.id_category,
+                name: action.payload.name,
+              }
+            : category
+        ),
         loadingCategoryData: false,
       };
     case UPDATE_CATEGORIES_ERROR:

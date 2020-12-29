@@ -129,18 +129,18 @@ export const editCategories = (data) => async (dispatch) => {
       data: {
         Category: [
           {
-            id_category: data.id,
+            id_category: data.id_category,
             name: data.name,
           },
         ],
       },
       headers: headers,
       timeout: 15000,
-    });
-
-    await dispatch({
-      type: UPDATE_CATEGORIES,
-      payload: data,
+    }).then(() => {
+      dispatch({
+        type: UPDATE_CATEGORIES,
+        payload: data,
+      });
     });
   } catch (e) {
     dispatch({

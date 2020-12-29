@@ -28,7 +28,7 @@ function EditCategoryModal(props) {
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(props.category.name);
-  const [id] = useState(props.category.id);
+  const [id] = useState(props.category.id_category);
 
   const error = useSelector((state) => state.categories.error);
   const loadingCategoryData = useSelector(
@@ -64,7 +64,7 @@ function EditCategoryModal(props) {
     if (validateForm()) {
       try {
         const formData = {
-          id_product: id,
+          id_category: id,
           name,
         };
         dispatch(showLoading());
@@ -93,7 +93,7 @@ function EditCategoryModal(props) {
 
   return (
     <>
-      <Modal isOpen={open} fade={false}>
+      <Modal isOpen={open} fade={true} backdrop={false}>
         {error === "" ? null : (
           <Alert severity="error" className="error-category m-2">
             {error}
