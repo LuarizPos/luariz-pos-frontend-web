@@ -117,11 +117,6 @@ export const editCategories = (data) => async (dispatch) => {
   };
 
   try {
-    await dispatch({
-      type: SHOW_LOADING_CATEGORIES,
-      payload: true,
-    });
-
     // Send a POST request
     await axios({
       method: "post",

@@ -1,58 +1,49 @@
 import React, { useState } from "react";
-import {
-  FormGroup,
-  Input,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  Label,
-} from "reactstrap";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import CreateIcon from "@material-ui/icons/Create";
-import Alert from "@material-ui/lab/Alert";
+import { useSelector, useDispatch } from "react-redux";
 import {
   editCategories,
-  showLoading,
   hideLoading,
   showError,
   clearError,
 } from "../../store/actions/categoriesActions";
-import { useDispatch, useSelector } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Alert from "@material-ui/lab/Alert";
 
 function EditCategoryModal(props) {
   const dispatch = useDispatch();
-  const [disabledButton, setDisabledButton] = useState(false);
-
+  const classes = useStyles();
+  const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
+
   const [name, setName] = useState(props.category.name);
-  const [id] = useState(props.category.id_category);
+  const [id_category] = useState(props.category.id_category);
 
   const error = useSelector((state) => state.categories.error);
-  const loadingCategoryData = useSelector(
-    (state) => state.categories.loadingCategoryData
-  );
 
-  function handleOpen() {
+  // Uncomment code below to see the change of state flow inside this component
+  // useSelector((state) => console.log("state is : ", state));
+
+  const handleOpen = () => {
     dispatch(clearError());
     dispatch(hideLoading());
+    setInternalLoading(false);
     setOpen(true);
-  }
+  };
 
-  function handleClose() {
+  const handleClose = () => {
+    setInternalLoading(false);
     setOpen(false);
-  }
-
-  function handleChange(event) {
-    setName(event.target.value);
-  }
+  };
 
   const validateForm = () => {
     if (name.length === 0) {
       dispatch(showError("Nama harus diisi"));
-      setDisabledButton(false);
       return false;
     } else {
       dispatch(clearError());
@@ -60,81 +51,131 @@ function EditCategoryModal(props) {
     }
   };
 
-  function editCategory(data) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (validateForm()) {
       try {
         const formData = {
-          id_category: id,
+          id_category,
           name,
         };
-        dispatch(showLoading());
+        setInternalLoading(true);
         setDisabledButton(true);
-        dispatch(editCategories(formData)).then(() => {
-          dispatch(hideLoading());
 
-          // Check if error is exist by get its class name from <Alert> component
-          let errorEditProduct = document.getElementsByClassName(
-            "error-category"
-          );
+        // Check if error is exist by get its class name from <Alert> component
+        let errorEditCategory = document.getElementsByClassName(
+          "error-category"
+        );
 
-          // Check errorEditProduct is exist or not
-          if (errorEditProduct.length === 0) {
+        function checkError() {
+          setDisabledButton(false);
+          setInternalLoading(false);
+          if (errorEditCategory.length === 0) {
+            setOpen(false)
             return true;
           } else {
-            setDisabledButton(false);
             return false;
           }
-        });
+        }
+
+        async function editNow() {
+          await dispatch(editCategories(formData));
+          await checkError();
+        }
+
+        editNow();
       } catch (e) {
         console.log(e);
       }
     }
-  }
+  };
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      {error === "" ? null : (
+        <Alert severity="error" className="error-category mb-2">
+          {error}
+        </Alert>
+      )}
+      <h2 id="simple-modal-title">Edit {props.category.name}</h2>
+      <p id="simple-modal-description">{props.category.text}</p>
+      <Form onSubmit={handleSubmit}>
+        <Row>
+          <Col>
+            <FormGroup>
+              <Label for="name">Nama</Label>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                value={name}
+                placeholder="Nama"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup className="d-flex justify-content-between">
+              <Button color="primary" type="submit" disabled={disabledButton}>
+                Simpan
+              </Button>
+              {internalLoading ? <CircularProgress className="ml-2" /> : null}
+              <Button
+                color="danger"
+                type="button"
+                onClick={handleClose}
+                disabled={disabledButton}
+              >
+                Tutup
+              </Button>
+            </FormGroup>
+          </Col>
+        </Row>
+      </Form>
+    </div>
+  );
 
   return (
-    <>
-      <Modal isOpen={open} fade={true} backdrop={false}>
-        {error === "" ? null : (
-          <Alert severity="error" className="error-category m-2">
-            {error}
-          </Alert>
-        )}
-        <ModalHeader>Edit {props.category.name}</ModalHeader>
-        <ModalBody>
-          <Form>
-            <FormGroup>
-              <Label>Nama Kategori</Label>
-              <Input type="text" onChange={handleChange} id="name" />
-            </FormGroup>
-          </Form>
-        </ModalBody>
-        <ModalFooter>
-          {loadingCategoryData ? <CircularProgress className="ml-2" /> : null}
-          <Button
-            color="primary"
-            disabled={disabledButton}
-            onClick={() => editCategory()}
-            autoFocus
-          >
-            Simpan
-          </Button>
-          <Button
-            color="secondary"
-            onClick={handleClose}
-            disabled={disabledButton}
-          >
-            Batal
-          </Button>
-        </ModalFooter>
-      </Modal>
+    <span className="edit-category" key={props.category.id}>
       <Button
-        className="border bg-warning rounded-circle p-3 m-2"
+        color="warning"
+        className="border rounded-circle p-3"
         onClick={handleOpen}
       >
         <CreateIcon />
       </Button>
-    </>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        disableBackdropClick={true}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
+    </span>
   );
 }
+
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: "absolute",
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 export default EditCategoryModal;

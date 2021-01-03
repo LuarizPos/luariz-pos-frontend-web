@@ -23,29 +23,27 @@ function CategoryList() {
       {loadingCategoryData === true ? (
         <LoadingData />
       ) : (
-        <>
-          <ListGroup>
-            {categories.map((category) => (
-              <ListGroupItem
-                className="shadow-sm p-3 mb-3 bg-white rounded"
-                key={category.id_category}
-              >
-                <Row>
-                  <Col className="text-left align-self-center">
-                    <h4 className="d-block font-weight-bold mb-0 text-dark">
-                      {category.name}
-                    </h4>
-                    <small>{category.total_product} Products</small>
-                  </Col>
-                  <Col className="text-right align-self-center">
-                    <EditCategoryModal category={category} />
-                    <DeleteCategoryModal category={category} />
-                  </Col>
-                </Row>
-              </ListGroupItem>
-            ))}
-          </ListGroup>
-        </>
+        <ListGroup>
+          {categories.map((category) => (
+            <ListGroupItem
+              className="shadow-sm p-3 mb-3 bg-white rounded"
+              key={category.id_category}
+            >
+              <Row>
+                <Col className="text-left align-self-center">
+                  <h4 className="d-block font-weight-bold mb-0 text-dark">
+                    {category.name}
+                  </h4>
+                  <small>{category.total_product} Products</small>
+                </Col>
+                <Col className="text-right align-self-center">
+                  <EditCategoryModal category={category} />
+                  <DeleteCategoryModal category={category} />
+                </Col>
+              </Row>
+            </ListGroupItem>
+          ))}
+        </ListGroup>
       )}
     </div>
   );
