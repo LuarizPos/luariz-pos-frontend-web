@@ -1,13 +1,13 @@
 import React from "react";
 import Cart from "./Cart";
 import OrderingProduct from "./OrderingProduct";
-import ProductCategory from "./ProductCategory";
+import CategoryFilter from "./CategoryFilter";
 
 function Order() {
   return (
     <div className="row">
       <div className="col-8">
-        <ProductCategory />
+        <CategoryFilter />
         <OrderingProduct />
       </div>
       <div className="col-4">

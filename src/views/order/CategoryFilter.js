@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "reactstrap";
 
-function ProductCategory() {
+function CategoryFilter() {
   return (
     <div className="mb-2">
       <Button className="rounded btn btn-link rounded-pill active">
@@ -20,4 +20,4 @@ function ProductCategory() {
   );
 }
 
-export default ProductCategory;
+export default CategoryFilter;
