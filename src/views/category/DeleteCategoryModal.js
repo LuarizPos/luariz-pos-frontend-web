@@ -34,21 +34,28 @@ function DeleteCategoryModal(props) {
     try {
       setInternalLoading(true);
       setDisabledButton(true);
-      dispatch(deleteCategories(id)).then(() => {
-        setInternalLoading(false);
 
-        // Check if error is exist by get its class name from <Alert> component
-        let errorDeleteProduct = document.getElementsByClassName(
-          "error-category"
-        );
-        // Check errorDeleteProduct is exist or not
-        if (errorDeleteProduct.length === 0) {
+      // Check if error is exist by get its class name from <Alert> component
+      let errorDeleteCategory = document.getElementsByClassName(
+        "error-category"
+      );
+
+      function checkError() {
+        if (errorDeleteCategory.length === 0) {
           return true;
         } else {
           setDisabledButton(false);
+          setInternalLoading(false);
           return false;
         }
-      });
+      }
+
+      async function deleteNow() {
+        await dispatch(deleteCategories(id));
+        await checkError();
+      }
+
+      deleteNow();
     } catch (e) {
       console.log(e);
     }
