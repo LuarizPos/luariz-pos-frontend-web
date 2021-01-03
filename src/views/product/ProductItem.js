@@ -12,6 +12,9 @@ import DeleteProductModal from "./DeleteProductModal";
 import { rupiahCoverter } from "../../helper/textHelper";
 
 function ProductItem(props) {
+  const editStatus = props.edit;
+  const deleteStatus = props.delete;
+  const descriptionStatus = props.description;
   return (
     <React.Fragment>
       <Card className="shadow mb-5 bg-white rounded">
@@ -22,14 +25,18 @@ function ProductItem(props) {
           width="100px"
         />
         <CardBody>
-          <CardTitle tag="h5">{props.product.name}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
-            {rupiahCoverter(props.product.price)}
+          <CardTitle tag="h6">{props.product.name}</CardTitle>
+          <CardSubtitle className="mb-2 text-muted">
+            <strong>{rupiahCoverter(props.product.price)}</strong>
           </CardSubtitle>
-          <CardText>{props.product.description}</CardText>
+          <CardText>
+            {descriptionStatus ? props.product.description : null}
+          </CardText>
           <div className="d-flex justify-content-around" key={props.product.id}>
-            <EditProductModal product={props.product} />
-            <DeleteProductModal product={props.product} />
+            {editStatus ? <EditProductModal product={props.product} /> : null}
+            {deleteStatus ? (
+              <DeleteProductModal product={props.product} />
+            ) : null}
           </div>
         </CardBody>
       </Card>

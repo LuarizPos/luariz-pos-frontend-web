@@ -1,69 +1,72 @@
-import React from "react";
-import {
-  Card,
-  CardTitle,
-  CardText,
-  CardImg,
-  Col,
-  Row,
-  CardImgOverlay,
-} from "reactstrap";
-import data from "../../static_data/productData.json";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Col, Row } from "reactstrap";
+import { getProducts } from "../../store/actions/productsActions";
+import ProductItem from "../product/ProductItem";
+import LoadingData from "../../general_components/LoadingData";
+import { Link } from "react-router-dom";
 
 function OrderingProduct() {
-  return (
-    <Row
-      style={{
-        height: "60vh",
-        overflow: "scroll",
-        textShadow:
-          "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-      }}
-    >
-      {data.map((obj) => {
-        // obj.price = Helpers.convertToRupiah(obj.price);
-        return (
-          <Col md="4" sm="4" xs="4" className="pt-0 pb-3" key={obj.id}>
-            <Card
-              inverse
-              key={obj.key}
-              id={obj.id}
-              className="shadow mb-5 bg-white rounded border border-dark"
-            >
-              <CardImg
-                width="100%"
-                src={obj.image}
-                alt={obj.title}
-                style={{ objectFit: "cover", filter: "blur(3px)" }}
-              />
-              <CardImgOverlay>
-                <CardTitle tag="h5">{obj.title}</CardTitle>
-                <CardText>{obj.description}</CardText>
-                <CardText>
-                  <small className="text-white">{obj.price}</small>
-                </CardText>
-              </CardImgOverlay>
-            </Card>
-          </Col>
+  const dispatch = useDispatch();
+  const [order, setOrder] = useState([]);
 
-          // <Col md="4" sm="4" xs="4" className="pt-0 pb-3" key={obj.id}>
-          //   <Card key={obj.key} id={obj.id}>
-          //     <CardImg
-          //       top
-          //       src={obj.image}
-          //       style={{ objectFit: "cover", width: "100%" }}
-          //       alt="Card image cap"
-          //     />
-          //     <CardBody>
-          //       <CardTitle tag="h5">{obj.title}</CardTitle>
-          //       <CardText>{obj.description}</CardText>
-          //     </CardBody>
-          //     <CardFooter>{obj.price}</CardFooter>
-          //   </Card>
-          // </Col>
-        );
-      })}
-    </Row>
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const products = useSelector((state) => state.products.products);
+  const loadingProductData = useSelector(
+    (state) => state.products.loadingProductData
+  );
+
+  const handleClick = (id) => {
+    // console.log(event.target.dataset.id);
+    setOrder(id);
+    console.log(id);
+  };
+
+  return (
+    <React.Fragment>
+      {loadingProductData ? (
+        <LoadingData />
+      ) : (
+        <React.Fragment>
+          {products.length === 0 ? (
+            <h6>
+              Tidak ada data produk. Silahkah tambah produk di bagian{" "}
+              <Link to="/product">Produk</Link>
+            </h6>
+          ) : (
+            <Row
+              className="p-3 border rounded"
+              style={{
+                height: "60vh",
+                overflow: "scroll",
+              }}
+            >
+              {products.map((product) => (
+                <Col
+                  md="3"
+                  sm="3"
+                  xs="3"
+                  key={product.id}
+                  className="order-product"
+                  onClick={() => handleClick(product)}
+                  // data-id={product.id}
+                >
+                  <ProductItem
+                    product={product}
+                    edit={false}
+                    delete={false}
+                    description={false}
+                  />
+                </Col>
+              ))}
+            </Row>
+          )}
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 }
 

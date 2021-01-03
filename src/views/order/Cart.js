@@ -15,7 +15,7 @@ function Cart() {
           <Col>
             <div className="d-flex justify-content-between align-items-end">
               <h5>Current Order</h5>
-              <HighlightOffIcon className="mb-1 text-dark" color="btn-link" />
+              <HighlightOffIcon className="mb-1 text-dark"  />
             </div>
           </Col>
         </Row>
