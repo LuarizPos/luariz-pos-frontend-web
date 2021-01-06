@@ -1,5 +1,6 @@
 import {
   GET_PRODUCTS,
+  GET_PRODUCTS_ERROR,
   UPDATE_PRODUCTS,
   UPDATE_PRODUCTS_ERROR,
   SHOW_EDIT_MODAL,
@@ -57,6 +58,11 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
+        loadingProductData: false,
+      };
+    case GET_PRODUCTS_ERROR:
+      return {
+        ...state,
         loadingProductData: false,
       };
     case UPDATE_PRODUCTS:
