@@ -28,6 +28,8 @@ function AddCategoryModal() {
   const error = useSelector((state) => state.products.error);
 
   const handleOpen = () => {
+    setDisabledButton(false);
+    setName("");
     setOpen(true);
   };
 
