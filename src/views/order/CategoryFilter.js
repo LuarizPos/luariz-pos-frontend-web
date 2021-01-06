@@ -10,13 +10,11 @@ function CategoryFilter() {
         All item
       </Button>
       {categories.map((category) => (
-        <Button
-          color="link"
-          className="rounded btn btn-link text-dark"
-          key={category.id}
-        >
-          {category.name}
-        </Button>
+        <span key={category.id_category}>
+          <Button color="link" className="rounded btn btn-link text-dark">
+            {category.name}
+          </Button>
+        </span>
       ))}
     </div>
   );
