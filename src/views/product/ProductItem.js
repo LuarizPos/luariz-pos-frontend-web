@@ -10,8 +10,11 @@ import {
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import { rupiahCoverter } from "../../helper/textHelper";
+import { useDispatch } from "react-redux";
+import { prepareAddToCart } from "../../store/actions/ordersActions";
 
 function ProductItem(props) {
+  const dispatch = useDispatch();
   const editStatus = props.edit;
   const deleteStatus = props.delete;
   const descriptionStatus = props.description;
@@ -20,10 +23,10 @@ function ProductItem(props) {
   const [selected, setSelected] = useState(false);
 
   const handleClick = (data) => {
-    // console.log(event.target.dataset.id);
-    // console.log(data.name);
     if (selectingStatus === true) {
-      setSelected(!selected);
+      data.selectedItem = !selected;
+      setSelected((selected) => !selected);
+      dispatch(prepareAddToCart(data));
     }
   };
 
