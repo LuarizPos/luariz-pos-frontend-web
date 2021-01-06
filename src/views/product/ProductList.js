@@ -32,7 +32,12 @@ class ProductList extends Component {
               >
                 {products.map((product) => (
                   <Col md="3" sm="3" xs="3" key={product.id}>
-                    <ProductItem product={product}  edit={true} delete={true} />
+                    <ProductItem
+                      product={product}
+                      edit={true}
+                      delete={true}
+                      selecting={false}
+                    />
                   </Col>
                 ))}
               </Row>

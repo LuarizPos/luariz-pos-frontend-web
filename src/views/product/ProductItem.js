@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardImg,
@@ -15,9 +15,28 @@ function ProductItem(props) {
   const editStatus = props.edit;
   const deleteStatus = props.delete;
   const descriptionStatus = props.description;
+  const selectingStatus = props.selecting;
+
+  const [selected, setSelected] = useState(false);
+
+  const handleClick = (data) => {
+    // console.log(event.target.dataset.id);
+    // console.log(data.name);
+    if (selectingStatus === true) {
+      setSelected(!selected);
+    }
+  };
+
   return (
     <React.Fragment>
-      <Card className="shadow mb-5 bg-white rounded">
+      <Card
+        onClick={() => handleClick(props.product)}
+        className={
+          selected
+            ? "shadow mb-5 p-1 bg-dark text-white rounded"
+            : "shadow mb-5 bg-white rounded"
+        }
+      >
         <CardImg
           top
           src={props.product.image}

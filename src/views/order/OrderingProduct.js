@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Col, Row } from "reactstrap";
-import { getProducts } from "../../store/actions/productsActions";
 import ProductItem from "../product/ProductItem";
 import LoadingData from "../../general_components/LoadingData";
-import { Link } from "react-router-dom";
 
 function OrderingProduct() {
-  const dispatch = useDispatch();
-  const [order, setOrder] = useState([]);
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
-
   const products = useSelector((state) => state.products.products);
   const loadingProductData = useSelector(
     (state) => state.products.loadingProductData
   );
-
-  const handleClick = (id) => {
-    // console.log(event.target.dataset.id);
-    setOrder(id);
-    console.log(id);
-  };
 
   return (
     <React.Fragment>
@@ -32,10 +17,7 @@ function OrderingProduct() {
       ) : (
         <React.Fragment>
           {products.length === 0 ? (
-            <h6>
-              Tidak ada data produk. Silahkah tambah produk di bagian{" "}
-              <Link to="/product">Produk</Link>
-            </h6>
+            <h6>Tidak ada data produk.</h6>
           ) : (
             <Row
               className="p-3 border rounded"
@@ -51,14 +33,13 @@ function OrderingProduct() {
                   xs="3"
                   key={product.id}
                   className="order-product"
-                  onClick={() => handleClick(product)}
-                  // data-id={product.id}
                 >
                   <ProductItem
                     product={product}
                     edit={false}
                     delete={false}
                     description={false}
+                    selecting={true}
                   />
                 </Col>
               ))}
