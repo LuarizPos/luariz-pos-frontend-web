@@ -20,6 +20,8 @@ function CartItem(props) {
   const handleDecrease = () => {
     if (count > 0) {
       setCount(count - 1);
+      let orderData = { ...order, orderedItem: count - 1 };
+      dispatch(setOrderedItem(orderData));
     } else {
       return null;
     }
