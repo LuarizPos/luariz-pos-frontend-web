@@ -12,9 +12,11 @@ function Cart() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(clearCart())
-    dispatch(getProducts())
-  }
+    if (orders.length !== 0) {
+      dispatch(clearCart());
+      dispatch(getProducts());
+    }
+  };
 
   return (
     <React.Fragment>
