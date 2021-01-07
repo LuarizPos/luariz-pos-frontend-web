@@ -25,6 +25,7 @@ function ProductItem(props) {
   const handleClick = (data) => {
     if (selectingStatus === true) {
       data.selectedItem = !selected;
+      data.orderedItem = 1;
       setSelected((selected) => !selected);
       dispatch(prepareAddToCart(data));
     }
