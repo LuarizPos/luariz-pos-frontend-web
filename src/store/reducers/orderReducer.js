@@ -1,4 +1,10 @@
-import { ADD_TO_CART, ADD_TO_CART_ERROR, REMOVE_FROM_CART } from "../types";
+import {
+  ADD_TO_CART,
+  ADD_TO_CART_ERROR,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  SET_ORDERED_ITEM,
+} from "../types";
 
 const initialState = {
   orders: [],
@@ -22,6 +28,24 @@ export default function orderReducer(state = initialState, action) {
       return {
         ...state,
         error: "ADD_TO_CART_ERROR",
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        orders: [],
+      };
+    case SET_ORDERED_ITEM:
+      return {
+        ...state,
+        orders: state.orders.map((order) =>
+          order.id === action.payload.id
+            ? {
+                ...order,
+                orderedItem: action.payload.orderedItem,
+              }
+            : order
+        ),
+        loadingProductData: false,
       };
     default:
       return state;
