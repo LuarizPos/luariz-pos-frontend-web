@@ -45,7 +45,6 @@ export default function orderReducer(state = initialState, action) {
               }
             : order
         ),
-        loadingProductData: false,
       };
     default:
       return state;

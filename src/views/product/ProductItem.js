@@ -39,6 +39,7 @@ function ProductItem(props) {
             ? "shadow mb-5 p-1 bg-dark text-white rounded"
             : "shadow mb-5 bg-white rounded"
         }
+        id={`products-${props.product.id}`}
       >
         <CardImg
           top

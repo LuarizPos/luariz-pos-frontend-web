@@ -17,11 +17,15 @@ function CartItem(props) {
     dispatch(setOrderedItem(orderData));
   };
 
-  const handleDecrease = () => {
-    if (count > 0) {
+  const handleDecrease = (order) => {
+    if (count > 1) {
       setCount(count - 1);
       let orderData = { ...order, orderedItem: count - 1 };
       dispatch(setOrderedItem(orderData));
+    } else if (count === 1) {
+      let id_product = `products-${props.order.id}`;
+      // Force DOM to unselected by clicking on it
+      document.getElementById(id_product).click();
     } else {
       return null;
     }
