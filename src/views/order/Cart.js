@@ -6,6 +6,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/actions/ordersActions";
 import { getProducts } from "../../store/actions/productsActions";
+import EmptyOrdersListIcon from "../../svg/empty_order_list.svg";
 
 function Cart() {
   const orders = useSelector((state) => state.orders.orders);
@@ -18,6 +19,18 @@ function Cart() {
     }
   };
 
+  const EmptyOrders = (
+    <div className="d-flex justify-content-center p-5 flex-column align-items-center">
+      <img
+        src={EmptyOrdersListIcon}
+        alt="Orders is empty"
+        width="100"
+        height="100"
+        style={{ opacity: "50%" }}
+      />
+      <h4 className="text-muted my-3">Empty</h4>
+    </div>
+  );
   return (
     <React.Fragment>
       <Container
@@ -37,21 +50,26 @@ function Cart() {
         </Row>
         <Row>
           <Col>
-            {orders.map((order) => (
-              <CartItem order={order} key={order.id} />
-            ))}
+            {orders.length === 0
+              ? EmptyOrders
+              : orders.map((order) => (
+                  <CartItem order={order} key={order.id} />
+                ))}
           </Col>
         </Row>
       </Container>
-      <Container>
-        <Row className="mt-3">
-          <Col>
-            <Button className="btn-block" color="primary">
-              Proceed to checkout <NavigateNextIcon />
-            </Button>
-          </Col>
-        </Row>
-      </Container>
+
+      <div className="mt-3">
+        <div className="w-100">
+          <Button
+            className="btn-block"
+            color="primary"
+            disabled={orders.length === 0 ? true : false}
+          >
+            Proceed to checkout <NavigateNextIcon />
+          </Button>
+        </div>
+      </div>
     </React.Fragment>
   );
 }
