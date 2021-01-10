@@ -10,8 +10,9 @@ import {
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import { rupiahCoverter } from "../../helper/textHelper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { prepareAddToCart } from "../../store/actions/ordersActions";
+import { setToSelected } from "../../store/actions/productsActions";
 
 function ProductItem(props) {
   const dispatch = useDispatch();
@@ -20,14 +21,21 @@ function ProductItem(props) {
   const descriptionStatus = props.description;
   const selectingStatus = props.selecting;
 
-  const [selected, setSelected] = useState(false);
+  const selectedProducts = useSelector(
+    (state) => state.products.selectedProducts
+  );
+
+  const [selected, setSelected] = useState(
+    selectedProducts.includes(props.product.id) ? true : false
+  );
 
   const handleClick = (data) => {
     if (selectingStatus === true) {
       data.selectedItem = !selected;
-      data.orderedItem = 1;
+      data.orderedItem = 1; // Set default order item to 1
       setSelected((selected) => !selected);
       dispatch(prepareAddToCart(data));
+      dispatch(setToSelected(data));
     }
   };
 

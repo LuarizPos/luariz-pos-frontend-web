@@ -14,12 +14,14 @@ import {
   ADD_PRODUCTS,
   ADD_PRODUCTS_ERROR,
   GET_ERROR,
+  SET_TO_SELECTED,
 } from "../types";
 
 const initialState = {
   products: [],
   loadingProductData: false,
   error: "",
+  selectedProducts: [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -118,6 +120,11 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         error: [...state.products.error],
+      };
+    case SET_TO_SELECTED:
+      return {
+        ...state,
+        selectedProducts: [...state.selectedProducts, action.payload],
       };
     default:
       return state;

@@ -19,6 +19,7 @@ import {
   DELETE_PRODUCTS_ERROR,
   ADD_PRODUCTS,
   ADD_PRODUCTS_ERROR,
+  SET_TO_SELECTED,
 } from "../types";
 import axios from "axios";
 
@@ -289,4 +290,11 @@ export const showError = (string) => async (dispatch) => {
       payload: console.log(e),
     });
   }
+};
+
+export const setToSelected = (data) => async (dispatch) => {
+  dispatch({
+    type: SET_TO_SELECTED,
+    payload: data.id,
+  });
 };

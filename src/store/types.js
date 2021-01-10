@@ -56,3 +56,5 @@ export const ADD_TO_CART_ERROR = "ADD_TO_CART_ERROR";
 
 export const CLEAR_CART = "CLEAR_CART";
 export const SET_ORDERED_ITEM = "SET_ORDERED_ITEM";
+
+export const SET_TO_SELECTED = "SET_TO_SELECTED";
