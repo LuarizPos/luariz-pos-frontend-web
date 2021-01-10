@@ -23,6 +23,9 @@ import {
 } from "../types";
 import axios from "axios";
 
+// const baseURL = "https://app-luariz-post.herokuapp.com";
+const baseURL = "http://127.0.0.1:5000";
+
 export const getProducts = () => async (dispatch) => {
   const headers = {
     Authorization: "",
@@ -37,9 +40,9 @@ export const getProducts = () => async (dispatch) => {
     });
 
     // Send a POST request
-    let res = await axios({
+    await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/get_product",
+      url: `${baseURL}/v1/get_product`,
       data: {
         Product: {
           ShowAll: 1,
@@ -47,13 +50,20 @@ export const getProducts = () => async (dispatch) => {
         },
       },
       headers: headers,
-    });
+    }).then((response) => {
+      let data = response.data.API_LuarizPos.Response;
+      let message = response.data.API_LuarizPos.Message;
 
-    let data = await res.data.API_LuarizPos.Response;
-
-    await dispatch({
-      type: GET_PRODUCTS,
-      payload: data,
+      if (message.Code === 200) {
+        dispatch({
+          type: GET_PRODUCTS,
+          payload: data,
+        });
+      } else {
+        dispatch({
+          type: GET_PRODUCTS_ERROR,
+        });
+      }
     });
   } catch (e) {
     dispatch({
@@ -83,7 +93,7 @@ export const updateProducts = (data) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/update_product",
+      url: `${baseURL}/v1/update_product`,
       data: {
         Product: [
           {
@@ -124,7 +134,7 @@ export const deleteProducts = (id) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/delete_product",
+      url: `${baseURL}/v1/delete_product`,
       data: {
         Product: [
           {
@@ -174,7 +184,7 @@ export const addProducts = (data) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/insert_product",
+      url: `${baseURL}/v1/insert_product`,
       data: {
         Product: [
           {

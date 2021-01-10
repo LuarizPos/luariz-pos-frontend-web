@@ -17,6 +17,9 @@ import {
 } from "../types";
 import axios from "axios";
 
+// const baseURL = "https://app-luariz-post.herokuapp.com";
+const baseURL = "http://127.0.0.1:5000";
+
 export const getCategories = () => async (dispatch) => {
   const headers = {
     Authorization: "",
@@ -32,7 +35,7 @@ export const getCategories = () => async (dispatch) => {
     // Send a POST request
     let res = await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/get_category",
+      url: `${baseURL}/v1/get_category`,
       data: {
         Category: {
           ShowAll: 1,
@@ -81,7 +84,7 @@ export const addCategories = (data) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/insert_category",
+      url: `${baseURL}/v1/insert_category`,
       data: {
         Category: [
           {
@@ -94,7 +97,8 @@ export const addCategories = (data) => async (dispatch) => {
       timeout: 15000,
     }).then(function (response) {
       // set id_category from response
-      addedData.id = response.data.API_LuarizPos.Response[0].id;
+      addedData.id_category =
+        response.data.API_LuarizPos.Response[0].id_category;
       dispatch({
         type: ADD_CATEGORIES,
         payload: addedData,
@@ -120,7 +124,7 @@ export const editCategories = (data) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/update_category",
+      url: `${baseURL}/v1/update_category`,
       data: {
         Category: [
           {
@@ -157,7 +161,7 @@ export const deleteCategories = (id) => async (dispatch) => {
     // Send a POST request
     await axios({
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/delete_category",
+      url: `${baseURL}/v1/delete_category`,
       data: {
         Category: [
           {
