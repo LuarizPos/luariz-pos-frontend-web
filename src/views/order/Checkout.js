@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import { Button, Col, Form, FormGroup, Row } from "reactstrap";
+import { Button, Col, Container, Form, FormGroup, Row } from "reactstrap";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useSelector } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
@@ -47,11 +47,10 @@ function Checkout() {
 
         {orders.map((order) => (
           <FormGroup key={order.id}>
-            <Row className="shadow-sm p-3 mb-1 bg-white rounded">
+            <Row className="mb-1">
               <Col className="col-8">
                 <img
                   src={order.image}
-                  width={100}
                   height={40}
                   alt={order.name}
                   className="mr-2 rounded"
@@ -65,32 +64,31 @@ function Checkout() {
           </FormGroup>
         ))}
         <FormGroup>
-          <div className="shadow p-3 mb-5 bg-white rounded">
-            <table className="table table-sm">
-              <tbody>
-                <tr>
-                  <td colSpan="2">
-                    <strong>Subtotal</strong>
-                  </td>
-                  <td>{rupiahCoverter(totalOrderPrice)}</td>
-                </tr>
-                <tr>
-                  <td colSpan="2">
-                    <strong>Tax</strong>
-                  </td>
-                  <td>{rupiahCoverter(0)}</td>
-                </tr>
-                <tr>
-                  <td colSpan="2">
-                    <h4>Total</h4>
-                  </td>
-                  <td>
-                    <strong>{rupiahCoverter(totalOrderPrice)}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          {/* className="shadow p-3 mb-5 bg-white rounded" */}
+          <Container className="shadow p-3 mb-5 bg-white rounded">
+            <Row>
+              <Col>
+                <strong>Subtotal</strong>
+              </Col>
+              <Col>{rupiahCoverter(totalOrderPrice)}</Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col>
+                <strong>Tax</strong>
+              </Col>
+              <Col>{rupiahCoverter(0)}</Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col>
+                <h4>Total</h4>
+              </Col>
+              <Col>
+                <strong>{rupiahCoverter(totalOrderPrice)}</strong>
+              </Col>
+            </Row>
+          </Container>
         </FormGroup>
         <FormGroup className="d-flex justify-content-between">
           {/* <Button color="primary" type="submit" disabled={disabledButton}> */}
