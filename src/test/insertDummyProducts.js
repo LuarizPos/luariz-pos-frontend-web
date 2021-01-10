@@ -2,8 +2,10 @@ const axios = require("axios");
 const faker = require("faker");
 const request = require("request-promise-native");
 
-let imageUrl = "https://source.unsplash.com/640x320/?dish,burger";
-let totalProducts = 10; // Make 10 dummies
+const imageUrl = "https://source.unsplash.com/640x320/?dish,burger";
+const totalProducts = 5; // Make 5 dummies
+const baseURL = "http://127.0.0.1:5000";
+// const baseURL = "https://app-luariz-post.herokuapp.com";
 
 for (let index = 0; index < totalProducts; index++) {
   request({
@@ -44,7 +46,7 @@ for (let index = 0; index < totalProducts; index++) {
 
     const config = {
       method: "post",
-      url: "https://app-luariz-post.herokuapp.com/v1/insert_product",
+      url: `${baseURL}/v1/insert_product`,
       headers: {
         Authorization:
           "d5ef9bf84492f777e60ecd81d4bd1e227b20cf1336a0c49fb4cfc7717760d228418",
