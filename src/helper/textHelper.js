@@ -3,5 +3,9 @@ export const thousandSeparator = (text) => {
 };
 
 export const rupiahCoverter = (text) => {
-  return "Rp" + text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  if (text == null) {
+    return 0;
+  } else {
+    return "Rp" + text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 };
