@@ -1,12 +1,12 @@
 import React from "react";
-import { Row, Col, Container, Button } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CartItem from "./CartItem";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/actions/ordersActions";
 import { getProducts } from "../../store/actions/productsActions";
 import EmptyOrdersListIcon from "../../svg/empty_order_list.svg";
+import Checkout from "./Checkout";
 
 function Cart() {
   const orders = useSelector((state) => state.orders.orders);
@@ -58,18 +58,7 @@ function Cart() {
           </Col>
         </Row>
       </Container>
-
-      <div className="mt-3">
-        <div className="w-100">
-          <Button
-            className="btn-block"
-            color="primary"
-            disabled={orders.length === 0 ? true : false}
-          >
-            Proceed to checkout <NavigateNextIcon />
-          </Button>
-        </div>
-      </div>
+      <Checkout />
     </React.Fragment>
   );
 }

@@ -7,7 +7,7 @@ import { setOrderedItem } from "../../store/actions/ordersActions";
 
 function CartItem(props) {
   const order = props.order;
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(order.orderedItem ? order.orderedItem : 1); // If order.orderedItem is set then use it as state, if not, set default to 1
 
   const dispatch = useDispatch();
 
