@@ -26,7 +26,9 @@ function ProductItem(props) {
   );
 
   const [selected, setSelected] = useState(
-    selectedProducts.includes(props.product.id) ? true : false
+    selectedProducts.includes(props.product.id) && selectingStatus === true
+      ? true
+      : false
   );
 
   const handleClick = (data) => {
