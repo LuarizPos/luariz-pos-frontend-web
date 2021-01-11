@@ -16,6 +16,8 @@ import {
   GET_ERROR,
   SET_TO_SELECTED,
   CLEAR_SELECTED,
+  GET_PRODUCTS_BY_CATEGORY,
+  GET_PRODUCTS_BY_CATEGORY_ERROR,
 } from "../types";
 
 const initialState = {
@@ -131,6 +133,17 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         selectedProducts: [],
+      };
+    case GET_PRODUCTS_BY_CATEGORY:
+      return {
+        ...state,
+        products: action.payload,
+        loadingProductData: false,
+      };
+    case GET_PRODUCTS_BY_CATEGORY_ERROR:
+      return {
+        ...state,
+        loadingProductData: false,
       };
     default:
       return state;

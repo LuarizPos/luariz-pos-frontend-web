@@ -21,6 +21,8 @@ import {
   ADD_PRODUCTS_ERROR,
   SET_TO_SELECTED,
   CLEAR_SELECTED,
+  GET_PRODUCTS_BY_CATEGORY,
+  GET_PRODUCTS_BY_CATEGORY_ERROR,
 } from "../types";
 import axios from "axios";
 
@@ -314,4 +316,53 @@ export const clearSelected = () => async (dispatch) => {
   dispatch({
     type: CLEAR_SELECTED,
   });
+};
+
+export const getProductsByCategory = (id_category) => async (dispatch) => {
+  const headers = {
+    Authorization: "",
+    Token: "",
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  };
+  try {
+    await dispatch({
+      type: SHOW_LOADING,
+      payload: true,
+    });
+
+    // Send a POST request
+    await axios({
+      method: "post",
+      url: `${baseURL}/v1/get_product`,
+      data: {
+        Product: {
+          ShowAll: 1,
+          id_product: 0,
+        },
+      },
+      headers: headers,
+    }).then((response) => {
+      let data = response.data.API_LuarizPos.Response.filter(
+        (product) => product.id_category === id_category
+      );
+      let message = response.data.API_LuarizPos.Message;
+
+      if (message.Code === 200) {
+        dispatch({
+          type: GET_PRODUCTS_BY_CATEGORY,
+          payload: data,
+        });
+      } else {
+        dispatch({
+          type: GET_PRODUCTS_BY_CATEGORY_ERROR,
+        });
+      }
+    });
+  } catch (e) {
+    dispatch({
+      type: GET_PRODUCTS_BY_CATEGORY_ERROR,
+      payload: console.log(e),
+    });
+  }
 };
