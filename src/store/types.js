@@ -58,3 +58,4 @@ export const CLEAR_CART = "CLEAR_CART";
 export const SET_ORDERED_ITEM = "SET_ORDERED_ITEM";
 
 export const SET_TO_SELECTED = "SET_TO_SELECTED";
+export const CLEAR_SELECTED = "CLEAR_SELECTED";

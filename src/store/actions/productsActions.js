@@ -20,6 +20,7 @@ import {
   ADD_PRODUCTS,
   ADD_PRODUCTS_ERROR,
   SET_TO_SELECTED,
+  CLEAR_SELECTED,
 } from "../types";
 import axios from "axios";
 
@@ -306,5 +307,11 @@ export const setToSelected = (data) => async (dispatch) => {
   dispatch({
     type: SET_TO_SELECTED,
     payload: data.id,
+  });
+};
+
+export const clearSelected = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_SELECTED,
   });
 };

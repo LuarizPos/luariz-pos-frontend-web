@@ -4,7 +4,10 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../store/actions/ordersActions";
-import { getProducts } from "../../store/actions/productsActions";
+import {
+  getProducts,
+  clearSelected,
+} from "../../store/actions/productsActions";
 import EmptyOrdersListIcon from "../../svg/empty_order_list.svg";
 import Checkout from "./Checkout";
 
@@ -15,6 +18,7 @@ function Cart() {
   const handleClick = () => {
     if (orders.length !== 0) {
       dispatch(clearCart());
+      dispatch(clearSelected());
       dispatch(getProducts());
     }
   };
