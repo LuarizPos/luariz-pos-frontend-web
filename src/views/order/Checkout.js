@@ -45,9 +45,14 @@ function Checkout() {
           <PaymentOption />
         </FormGroup>
 
-        {orders.map((order) => (
-          <FormGroup key={order.id}>
-            <Row className="mb-1">
+        <FormGroup
+          style={{
+            height: "30vh",
+            overflow: "scroll",
+          }}
+        >
+          {orders.map((order) => (
+            <Row className="mb-1" key={order.id}>
               <Col className="col-8">
                 <img
                   src={order.image}
@@ -61,8 +66,9 @@ function Checkout() {
                 {rupiahCoverter(order.price * order.orderedItem)}
               </Col>
             </Row>
-          </FormGroup>
-        ))}
+          ))}
+        </FormGroup>
+
         <FormGroup>
           {/* className="shadow p-3 mb-5 bg-white rounded" */}
           <Container className="shadow p-3 mb-5 bg-white rounded">
