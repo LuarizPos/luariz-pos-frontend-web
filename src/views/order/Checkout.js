@@ -46,6 +46,7 @@ function Checkout() {
         </FormGroup>
 
         <FormGroup
+          className="px-3"
           style={{
             height: "30vh",
             overflow: "scroll",
