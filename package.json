@@ -38,7 +38,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev-deploy": "react-scripts build && cd build && copy index.html 200.html && surge",
-    "insert-dummy-products": "node ./src/test/insertDummyProducts.js"
+    "ti": "node ./src/test/testInsertV2.js",
+    "im": "node ./src/test/insertMeals.js",
+    "ib": "node ./src/test/insertBeverages.js"
   },
   "eslintConfig": {
     "extends": [
