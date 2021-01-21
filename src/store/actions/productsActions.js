@@ -26,8 +26,7 @@ import {
 } from "../types";
 import axios from "axios";
 
-// const baseURL = "https://app-luariz-post.herokuapp.com";
-const baseURL = "http://127.0.0.1:5000";
+const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 
 export const getProducts = () => async (dispatch) => {
   const headers = {

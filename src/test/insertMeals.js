@@ -2,7 +2,7 @@ const axios = require("axios");
 const faker = require("faker");
 const request = require("request-promise-native");
 
-const generator = "https://www.themealdb.com/api/json/v1/1/random.php";
+const generator = process.env.REACT_APP_MEALS_API;
 let counterInsertedData = [];
 
 exports.insertMeals = function (params) {
@@ -65,7 +65,7 @@ exports.insertMeals = function (params) {
           })
           .then(function () {
             console.log(
-              "Sukses input data minuman ke DB dengan total " +
+              "Sukses input data makanan ke DB dengan total " +
                 counterInsertedData.length +
                 " data."
             );

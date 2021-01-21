@@ -2,7 +2,7 @@ const axios = require("axios");
 const faker = require("faker");
 const request = require("request-promise-native");
 
-const generator = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+const generator = process.env.REACT_APP_BEVERAGES_API;
 let counterInsertedData = [];
 
 exports.insertBeverages = function (params) {

@@ -21,8 +21,7 @@ const properties = [
 prompt.start();
 
 prompt.get(properties, function (err, result) {
-  const baseURL = "http://127.0.0.1:5000";
-  // const baseURL = "https://app-luariz-post.herokuapp.com";
+  const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 
   if (err) {
     return onErr(err);
