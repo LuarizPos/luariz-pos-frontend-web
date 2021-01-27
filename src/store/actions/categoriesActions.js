@@ -16,6 +16,7 @@ import {
   HIDE_LOADING_CATEGORIES,
 } from "../types";
 import axios from "axios";
+require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 

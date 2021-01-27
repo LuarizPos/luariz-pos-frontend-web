@@ -25,6 +25,7 @@ import {
   GET_PRODUCTS_BY_CATEGORY_ERROR,
 } from "../types";
 import axios from "axios";
+require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 

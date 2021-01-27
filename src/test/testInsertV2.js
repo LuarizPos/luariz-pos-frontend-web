@@ -2,6 +2,7 @@ const prompt = require("prompt");
 const ib = require("./insertBeverages");
 const im = require("./insertMeals");
 // import insertBeverages from "./insertBeverages";
+require("dotenv").config();
 
 const properties = [
   {
