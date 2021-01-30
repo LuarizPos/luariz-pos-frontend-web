@@ -1,7 +1,10 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getProductsByCategory } from "../../store/actions/productsActions";
+import {
+  getProducts,
+  getProductsByCategory,
+} from "../../store/actions/productsActions";
 
 function CategoryFilter() {
   const dispatch = useDispatch();
@@ -44,20 +47,22 @@ function CategoryFilter() {
       >
         All item
       </Button>
-      {categories
-        .sort((a, b) => a.id_category - b.id_category) // sort category ascending by id_category
-        .map((category) => (
-          <React.Fragment key={category.id_category}>
-            <Button
-              color="link"
-              id={category.id_category}
-              className="text-decoration-none rounded btn btn-link text-dark"
-              onClick={() => handleClick(category.id_category)}
-            >
-              {category.name}
-            </Button>
-          </React.Fragment>
-        ))}
+      {categories !== null
+        ? categories
+            .sort((a, b) => a.id_category - b.id_category) // sort category ascending by id_category
+            .map((category) => (
+              <React.Fragment key={category.id_category}>
+                <Button
+                  color="link"
+                  id={category.id_category}
+                  className="text-decoration-none rounded btn btn-link text-dark"
+                  onClick={() => handleClick(category.id_category)}
+                >
+                  {category.name}
+                </Button>
+              </React.Fragment>
+            ))
+        : null}
     </div>
   );
 }
