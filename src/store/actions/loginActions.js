@@ -51,7 +51,7 @@ export const doLogin = (data) => async (dispatch) => {
       // Create session storage and save session data
       sessionStorage.setItem("session", JSON.stringify(sessionData));
       // Redirect to dashboard
-      window.location.replace(window.location.href + "/dashboard");
+      window.location.replace(window.location.href);
     } else {
       dispatch({
         type: LOGIN_FAIL,
