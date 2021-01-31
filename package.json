@@ -12,7 +12,8 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
-    "faker": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "dotenv-expand": "^5.1.0",
     "filepond": "^4.25.1",
     "filepond-plugin-file-encode": "^2.1.9",
     "filepond-plugin-image-exif-orientation": "^1.0.9",
@@ -26,10 +27,12 @@
     "react-scripts": "4.0.1",
     "react-sticky-footer": "^0.1.0-rc3",
     "react-transition-group": "^4.4.1",
+    "react-validation": "^3.0.7",
     "reactstrap": "^8.7.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "validator": "^13.5.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -60,5 +63,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "surge": "^0.21.7",
+    "faker": "^5.1.0",
+    "prompt": "^1.1.0"
   }
 }
