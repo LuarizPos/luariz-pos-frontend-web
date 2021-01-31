@@ -40,7 +40,8 @@
     "dev-deploy": "react-scripts build && cd build && copy index.html 200.html && surge",
     "ti": "node ./src/test/testInsertV2.js",
     "im": "node ./src/test/insertMeals.js",
-    "ib": "node ./src/test/insertBeverages.js"
+    "ib": "node ./src/test/insertBeverages.js",
+    "bn": "react-scripts build && copy netlify.toml build/netlify.toml && cd build && copy index.html _redirects"
   },
   "eslintConfig": {
     "extends": [
