@@ -120,7 +120,7 @@ export default function SignInSide() {
           </Typography>
           {loading ? <CircularProgress className="ml-2" /> : null}
           {error === "" ? null : (
-            <Alert severity="error" className="error-login mb-2">
+            <Alert severity="error" className="error-login m-2">
               {error}
             </Alert>
           )}
