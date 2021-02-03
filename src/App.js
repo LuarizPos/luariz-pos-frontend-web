@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import TheLayout from "./containers/TheLayout";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./views/login/Login";
+import TheLayout from "./containers/TheLayout";
+import NotLoggedInLayout from "./views/login/NotLoggedInLayout";
 
 export const App = (props) => {
   // Get session data from sessionStorage
@@ -22,7 +22,19 @@ export const App = (props) => {
     </Router>
   );
 
-  return session === null ? <Login /> : LoggedIn;
+  const NotLoggedIn = (
+    <Router>
+      <Switch>
+        <Route path="/">
+          <div className="App">
+            <NotLoggedInLayout />
+          </div>
+        </Route>
+      </Switch>
+    </Router>
+  );
+
+  return session === null ? NotLoggedIn : LoggedIn;
 };
 
 const mapDispatchToProps = (dispatch) => {

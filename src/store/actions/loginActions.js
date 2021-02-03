@@ -61,6 +61,60 @@ export const doLogin = (data) => async (dispatch) => {
   });
 };
 
+export const doRegister = (data) => async (dispatch) => {
+  console.log("data", data);
+  // return;
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+  };
+
+  dispatch({
+    type: SHOW_LOADING_LOGIN,
+    payload: true,
+  });
+
+  axios({
+    method: "post",
+    url: `${baseURL}/v1/register_user`,
+    data: {
+      Register: {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        password_1: data.password_1,
+        password_2: data.password_2,
+        no_telp: parseInt(data.phone),
+        role_id: 1,
+        id_company: 1,
+        address: data.address,
+      },
+    },
+    headers: headers,
+  }).then((response) => {
+    dispatch({
+      type: HIDE_LOADING_LOGIN,
+      payload: false,
+    });
+
+    let messageShortText = response.data.API_LuarizPos.Message.ShortText;
+    let messageCode = response.data.API_LuarizPos.Message.Code;
+
+    if (messageCode === 200) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: messageShortText,
+      });
+      // Redirect to dashboard
+      window.location.replace("login");
+    } else {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: "Error : " + messageShortText,
+      });
+    }
+  });
+};
+
 export const showLoading = () => async (dispatch) => {
   try {
     dispatch({

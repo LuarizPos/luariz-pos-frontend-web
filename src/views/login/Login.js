@@ -163,7 +163,7 @@ export default function SignInSide() {
               onClick={login}
               disabled={loading}
             >
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item xs>
@@ -172,8 +172,8 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="register" variant="body2">
+                  {"Don't have an account? Register"}
                 </Link>
               </Grid>
             </Grid>
