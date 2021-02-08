@@ -95,7 +95,7 @@ export const doRegister = (data) => async (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: messageShortText,
       });
-      // Redirect to dashboard
+      // Redirect to login
       window.location.replace("login");
     } else {
       dispatch({
