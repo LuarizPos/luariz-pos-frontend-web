@@ -25,17 +25,12 @@ import {
   GET_PRODUCTS_BY_CATEGORY_ERROR,
 } from "../types";
 import axios from "axios";
+import { headers } from "../../helper/authHelper";
 require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 
 export const getProducts = () => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  };
   try {
     await dispatch({
       type: SHOW_LOADING,
@@ -48,7 +43,7 @@ export const getProducts = () => async (dispatch) => {
       url: `${baseURL}/v1/get_product`,
       data: {
         Product: {
-          ShowAll: 1,
+          show_all: 1,
           id_product: 0,
         },
       },
@@ -77,11 +72,6 @@ export const getProducts = () => async (dispatch) => {
 };
 
 export const updateProducts = (data) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
   try {
     const updatedData = {
       id_product: Number(data.id_product),
@@ -128,11 +118,6 @@ export const updateProducts = (data) => async (dispatch) => {
 };
 
 export const deleteProducts = (id) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
   try {
     // Send a POST request
     await axios({
@@ -141,6 +126,7 @@ export const deleteProducts = (id) => async (dispatch) => {
       data: {
         Product: [
           {
+            delete_all: 0,
             id_product: Number(id),
           },
         ],
@@ -163,12 +149,6 @@ export const deleteProducts = (id) => async (dispatch) => {
 };
 
 export const addProducts = (data) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
-
   try {
     await dispatch({
       type: SHOW_LOADING,
@@ -319,12 +299,6 @@ export const clearSelected = () => async (dispatch) => {
 };
 
 export const getProductsByCategory = (id_category) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  };
   try {
     await dispatch({
       type: SHOW_LOADING,
@@ -337,7 +311,7 @@ export const getProductsByCategory = (id_category) => async (dispatch) => {
       url: `${baseURL}/v1/get_product`,
       data: {
         Product: {
-          ShowAll: 1,
+          show_all: 1,
           id_product: 0,
         },
       },

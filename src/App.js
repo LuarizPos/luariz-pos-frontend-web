@@ -7,8 +7,6 @@ import NotLoggedInLayout from "./views/login/NotLoggedInLayout";
 export const App = (props) => {
   // Get session data from sessionStorage
   let session = sessionStorage.getItem("session");
-  // sessionStorage.setItem("session", "session");
-  console.log("session", session);
 
   const LoggedIn = (
     <Router>

@@ -10,15 +10,12 @@ import {
   SHOW_ERROR_FAILED,
 } from "../types";
 import axios from "axios";
+import { headers } from "../../helper/authHelper";
 require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 
 export const doLogin = (data) => async (dispatch) => {
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-  };
-
   dispatch({
     type: SHOW_LOADING_LOGIN,
     payload: true,
@@ -62,12 +59,6 @@ export const doLogin = (data) => async (dispatch) => {
 };
 
 export const doRegister = (data) => async (dispatch) => {
-  console.log("data", data);
-  // return;
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-  };
-
   dispatch({
     type: SHOW_LOADING_LOGIN,
     payload: true,

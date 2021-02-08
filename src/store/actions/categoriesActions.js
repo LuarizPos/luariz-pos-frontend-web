@@ -16,16 +16,13 @@ import {
   HIDE_LOADING_CATEGORIES,
 } from "../types";
 import axios from "axios";
+import { headers } from "../../helper/authHelper";
 require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
 
 export const getCategories = () => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
+  // console.log("headers", headers);
   try {
     await dispatch({
       type: SHOW_LOADING_CATEGORIES,
@@ -38,7 +35,7 @@ export const getCategories = () => async (dispatch) => {
       url: `${baseURL}/v1/get_category`,
       data: {
         Category: {
-          ShowAll: 1,
+          show_all: 1,
           id_category: 0,
         },
       },
@@ -64,12 +61,6 @@ export const getCategories = () => async (dispatch) => {
 };
 
 export const addCategories = (data) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
-
   try {
     await dispatch({
       type: SHOW_LOADING_CATEGORIES,
@@ -114,12 +105,6 @@ export const addCategories = (data) => async (dispatch) => {
 };
 
 export const editCategories = (data) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
-
   try {
     // Send a POST request
     await axios({
@@ -151,12 +136,6 @@ export const editCategories = (data) => async (dispatch) => {
 };
 
 export const deleteCategories = (id) => async (dispatch) => {
-  const headers = {
-    Authorization: "",
-    Token: "",
-    "Access-Control-Allow-Origin": "*",
-  };
-
   try {
     // Send a POST request
     await axios({
