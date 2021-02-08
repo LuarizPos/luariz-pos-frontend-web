@@ -54,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [password_1, setPassword_1] = useState("");
   const [password_2, setPassword_2] = useState("");
@@ -66,6 +68,17 @@ export default function Register() {
 
   const loading = useSelector((state) => state.login.loadingLoginData);
 
+  const roles = [
+    {
+      value: 2,
+      label: "Owner",
+    },
+    {
+      value: 3,
+      label: "Admin",
+    },
+  ];
+
   const validateForm = () => {
     if (name.length === 0) {
       dispatch(showError("Nama harus diisi"));
@@ -75,6 +88,12 @@ export default function Register() {
       return false;
     } else if (email.length === 0) {
       dispatch(showError("Email harus diisi"));
+      return false;
+    } else if (company.length === 0) {
+      dispatch(showError("Nama Perusahaan harus diisi"));
+      return false;
+    } else if (role.length === 0) {
+      dispatch(showError("Peran dalam Perusahaan harus dipilih"));
       return false;
     } else if (password_1.length === 0) {
       dispatch(showError("Password harus diisi"));
@@ -102,6 +121,8 @@ export default function Register() {
           name,
           phone,
           email,
+          company,
+          role,
           password_1,
           password_2,
           address,
@@ -168,6 +189,41 @@ export default function Register() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="company"
+                label="Company"
+                name="company"
+                autoComplete="company"
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="role"
+                variant="outlined"
+                fullWidth
+                select
+                label="Role"
+                name="role_id"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                SelectProps={{
+                  native: true,
+                }}
+                helperText="Please select your role in your company"
+              >
+                {roles.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
