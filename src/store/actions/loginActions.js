@@ -10,7 +10,11 @@ import {
   SHOW_ERROR_FAILED,
 } from "../types";
 import axios from "axios";
-import { headers } from "../../helper/authHelper";
+import {
+  headers,
+  setSessionData,
+  getSessionData,
+} from "../../helper/authHelper";
 require("dotenv").config();
 
 const baseURL = process.env.REACT_APP_BASEURL_SERVER;
@@ -36,7 +40,11 @@ export const doLogin = (data) => async (dispatch) => {
 
     let role_id = response.data.API_LuarizPos.Response.role_id;
     let token = response.data.API_LuarizPos.Response.token;
-    let sessionData = { role_id, token };
+    let sessionData = {
+      role_id,
+      token,
+      email: data.email,
+    };
     let messageShortText = response.data.API_LuarizPos.Message.ShortText;
     let messageCode = response.data.API_LuarizPos.Message.Code;
 
@@ -46,7 +54,7 @@ export const doLogin = (data) => async (dispatch) => {
         payload: messageShortText,
       });
       // Create session storage and save session data
-      sessionStorage.setItem("session", JSON.stringify(sessionData));
+      setSessionData(sessionData);
       // Redirect to dashboard
       window.location.replace(window.location.href);
     } else {
@@ -55,6 +63,25 @@ export const doLogin = (data) => async (dispatch) => {
         payload: messageShortText,
       });
     }
+  });
+};
+
+export const doLogout = () => async (dispatch) => {
+  const userSession = getSessionData();
+  const loggedEmail = userSession.email;
+
+  axios({
+    method: "post",
+    url: `${baseURL}/v1/logout_user`,
+    data: {
+      Logout: { email: loggedEmail },
+    },
+    headers: headers,
+  }).then(() => {
+    // Remove saved data from sessionStorage
+    sessionStorage.removeItem("session");
+    // Redirect to login
+    window.location.replace("login");
   });
 };
 
