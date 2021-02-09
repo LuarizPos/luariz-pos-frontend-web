@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import { Button, Col, Container, Form, FormGroup, Row } from "reactstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  Row,
+} from "reactstrap";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { useSelector } from "react-redux";
 import Alert from "@material-ui/lab/Alert";
@@ -13,6 +21,7 @@ function Checkout() {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const [change, setChange] = useState(0);
 
   const error = useSelector((state) => state.orders.error);
   const orders = useSelector((state) => state.orders.orders);
@@ -30,6 +39,13 @@ function Checkout() {
   };
 
   const handleSubmit = (event) => {};
+
+  const handleCash = (event) => {
+    let calculate = event.target.value - totalOrderPrice;
+    if (calculate > 0) {
+      setChange(calculate);
+    }
+  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -92,8 +108,32 @@ function Checkout() {
                 <h4>Total</h4>
               </Col>
               <Col>
-                <strong>{rupiahCoverter(totalOrderPrice)}</strong>
+                <h4>{rupiahCoverter(totalOrderPrice)}</h4>
               </Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col>
+                <strong>Cash</strong>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <Input
+                    type="number"
+                    name="cash"
+                    id="cash"
+                    placeholder="0"
+                    onChange={handleCash}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <hr />
+            <Row>
+              <Col>
+                <strong>Change </strong>
+              </Col>
+              <Col>{rupiahCoverter(change)}</Col>
             </Row>
           </Container>
         </FormGroup>
