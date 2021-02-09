@@ -78,6 +78,11 @@ export default function ForgotPassword() {
           </Button>
         </form>
       </div>
+      <Typography variant="body2" color="textSecondary" align="center">
+        <Link href="login" align="center">
+          {"Back to Login"}
+        </Link>
+      </Typography>
       <Box mt={8}>
         <Copyright />
       </Box>
