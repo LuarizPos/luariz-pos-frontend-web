@@ -31,14 +31,3 @@ export const headers = {
   Authorization: process.env.REACT_APP_AUTHORIZATION,
   Token: sessionStorage.getItem("session") ? getToken() : null,
 };
-
-// function getSessionData() {
-//   const session = sessionStorage.getItem("session");
-//   const userToken = session !== null ? JSON.parse(session) : null;
-// }
-
-// let sessionData = getSessionData();
-
-export const sessionData = {
-  // const session = sessionStorage.getItem("session");
-};
