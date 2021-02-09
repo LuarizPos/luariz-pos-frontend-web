@@ -144,17 +144,28 @@ export const deleteCategories = (id) => async (dispatch) => {
       data: {
         Category: [
           {
+            delete_all: 0,
             id_category: id,
           },
         ],
       },
       headers: headers,
       timeout: 15000,
-    }).then(() => {
-      dispatch({
-        type: DELETE_CATEGORIES,
-        payload: id,
-      });
+    }).then((response) => {
+      let messageShortText = response.data.API_LuarizPos.Message.ShortText;
+      let messageCode = response.data.API_LuarizPos.Message.Code;
+
+      if (messageCode === 200) {
+        dispatch({
+          type: DELETE_CATEGORIES,
+          payload: id,
+        });
+      } else {
+        dispatch({
+          type: DELETE_CATEGORIES_ERROR,
+          payload: "Error : " + messageShortText,
+        });
+      }
     });
   } catch (e) {
     dispatch({
