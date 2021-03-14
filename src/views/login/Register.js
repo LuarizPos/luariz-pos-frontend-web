@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+  // const [role, setRole] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [password_1, setPassword_1] = useState("");
@@ -68,16 +68,16 @@ export default function Register() {
 
   const loading = useSelector((state) => state.login.loadingLoginData);
 
-  const roles = [
-    {
-      value: 2,
-      label: "Owner",
-    },
-    {
-      value: 3,
-      label: "Admin",
-    },
-  ];
+  // const roles = [
+  //   {
+  //     value: 2,
+  //     label: "Owner",
+  //   },
+  //   {
+  //     value: 3,
+  //     label: "Admin",
+  //   },
+  // ];
 
   const validateForm = () => {
     if (name.length === 0) {
@@ -92,9 +92,9 @@ export default function Register() {
     } else if (company.length === 0) {
       dispatch(showError("Nama Perusahaan harus diisi"));
       return false;
-    } else if (role.length === 0) {
-      dispatch(showError("Peran dalam Perusahaan harus dipilih"));
-      return false;
+    // } else if (role.length === 0) {
+    //   dispatch(showError("Peran dalam Perusahaan harus dipilih"));
+    //   return false;
     } else if (password_1.length === 0) {
       dispatch(showError("Password harus diisi"));
       return false;
@@ -122,7 +122,7 @@ export default function Register() {
           phone,
           email,
           company,
-          role,
+          // role,
           password_1,
           password_2,
           address,
@@ -201,7 +201,7 @@ export default function Register() {
                 onChange={(e) => setCompany(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 id="role"
                 variant="outlined"
@@ -222,7 +222,7 @@ export default function Register() {
                   </option>
                 ))}
               </TextField>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12}>
               <TextField
